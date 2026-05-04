@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webkwestie: Wolven op de Veluwe</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; margin: 0; background: #f4f7f6; }
+        nav { background: #2c3e50; padding: 1rem; position: sticky; top: 0; display: flex; justify-content: center; gap: 10px; z-index: 1000; }
+        nav button { background: #34495e; border: none; color: white; padding: 10px 15px; cursor: pointer; border-radius: 4px; }
+        nav button:hover { background: #1abc9c; }
+        .container { max-width: 900px; margin: 20px auto; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .hidden { display: none; }
+        
+        /* Krantenartikel opmaak */
+        .newspaper { column-count: 2; column-gap: 40px; text-align: justify; border-top: 2px solid #000; padding-top: 20px; }
+        .newspaper h2 { column-span: all; text-align: center; font-family: 'Times New Roman', serif; font-size: 2.5rem; margin-bottom: 10px; }
+        .author { font-style: italic; margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
+
+        /* Mindmap Styles */
+        #mindmap-area { border: 2px dashed #ccc; padding: 20px; margin-top: 20px; border-radius: 10px; background: #fafafa; }
+        .node { background: #fff; border: 2px solid #2c3e50; padding: 10px; margin: 5px; display: inline-block; border-radius: 5px; }
+        
+        /* Rubric Table */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #2c3e50; color: white; }
+        
+        footer { font-size: 0.8rem; color: #7f8c8d; margin-top: 40px; border-top: 1px solid #eee; padding-top: 10px; }
+        .reset-btn { background: #e74c3c; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; float: right; }
+    </style>
+</head>
+<body>
+
+<nav id="main-nav" class="hidden">
+    <button onclick="showScreen('inleiding')">Inleiding</button>
+    <button onclick="showScreen('opdracht')">Opdracht</button>
+    <button onclick="showScreen('verwerking')">Verwerking</button>
+    <button onclick="showScreen('infobronnen')">Infobronnen</button>
+    <button onclick="showScreen('beoordeling')">Beoordeling</button>
+    <button onclick="showScreen('afsluiting')">Afsluiting</button>
+    <button onclick="showScreen('leerkracht')">Leerkracht</button>
+</nav>
+
+<div class="container">
+    <section id="screen-login">
+        <h1>Welkom bij de Webkwestie</h1>
+        <p>Voer je gegevens in om te starten:</p>
+        <input type="text" id="firstname" placeholder="Je voornaam...">
+        <select id="groep">
+            <option value="groep 7">Groep 7</option>
+            <option value="groep 8">Groep 8</option>
+        </select>
+        <button onclick="login()">Start Webkwestie</button>
+        <hr>
+        <button class="reset-btn" onclick="resetDatabase()">Reset Database (Verwijder alle data)</button>
+    </section>
+
+    <section id="screen-inleiding" class="hidden">
+        <div class="newspaper">
+            <h2>WOLVEN OP DE VELUWE</h2>
+            <div class="author">Door: Eip Janssen en Jannes Bijlsma</div>
+            <p><strong>Het is rond 8.00 uur als de inwoner van Ede...</strong> [Tekst uit je prompt hier invoegen]</p>
+            <p>Natuurmonumenten noemt de komst van het roofdier goed nieuws. De wolf maakt de Nederlandse natuur diverser en spannender.</p>
+        </div>
+        <div style="margin-top: 20px;">
+            <iframe width="100%" height="400" src="https://www.youtube.com/embed/p0KTqVoSEJ0" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <footer>Voetnoot: Inleiding (Introduction): Een korte, motiverende inleiding die de leerling oriënteert.</footer>
+    </section>
+
+    <section id="screen-opdracht" class="hidden">
+        <h2>Opdracht</h2>
+        <div style="background: #e8f6f3; padding: 20px; border-left: 5px solid #1abc9c;">
+            <p><strong>Deskundigen,</strong> voor jullie de opdracht om de wolf te laten terugkeren op de Veluwe...</p>
+            <ul>
+                <li>Geschiedenisdeskundige: Onderzoekt het verleden van Ede en de wolf.</li>
+                <li>Biologiedeskundige: Onderzoekt wat de wolf nodig heeft om te overleven.</li>
+            </ul>
+        </div>
+        <footer>Voetnoot: Opdracht (Task): Duidelijke beschrijving van het doel.</footer>
+    </section>
+
+    <section id="screen-verwerking" class="hidden">
+        <h2>Verwerking</h2>
+        <p>Maak hier je woordspin/mindmap over de voor- en tegenstanders van de wolf.</p>
+        
+        <div id="mindmap-area">
+            <h3>Mindmap Tool</h3>
+            <div id="mindmap-container">
+                <div class="node"><strong>Centraal: Wolven op de Veluwe</strong></div>
+                <div id="nodes-voor"><strong>Voorstanders:</strong> <button onclick="addNode('voor')">+</button></div>
+                <div id="nodes-tegen"><strong>Tegenstanders:</strong> <button onclick="addNode('tegen')">+</button></div>
+            </div>
+            <button onclick="window.print()" style="margin-top: 10px;">Mindmap afdrukken</button>
+        </div>
+        <footer>Voetnoot: Verwerking (Process): Stap-voor-stap beschrijving.</footer>
+    </section>
+
+    <section id="screen-beoordeling" class="hidden">
+        <h2>Beoordeling & Rubric</h2>
+        <table>
+            <tr>
+                <th>Vaardigheid</th>
+                <th>Matig</th>
+                <th>Voldoende</th>
+                <th>Goed</th>
+                <th>Geef een Top!</th>
+            </tr>
+            <tr>
+                <td><strong>Samenwerken</strong></td>
+                <td>Luistert niet naar anderen.</td>
+                <td>Werkt mee aan het groepsplan.</td>
+                <td>Helpt anderen en neemt initiatief.</td>
+                <td><input type="text" class="top-input" data-skill="Samenwerken"></td>
+            </tr>
+            <tr>
+                <td><strong>Informatievaardigheid</strong></td>
+                <td>Kan bronnen niet vinden.</td>
+                <td>Gebruikt de gegeven links.</td>
+                <td>Vindt zelfstandig extra info.</td>
+                <td><input type="text" class="top-input" data-skill="Info"></td>
+            </tr>
+        </table>
+        <button onclick="saveAssessment()">Beoordelingen Opslaan</button>
+    </section>
+
+    <section id="screen-afsluiting" class="hidden">
+        <h2>Afsluiting</h2>
+        <div id="summary-box">
+            <p>Gefeliciteerd! Je hebt onderzocht hoe de wolf een plek kan krijgen op de Veluwe. Je hebt geleerd over de geschiedenis van Ede en de biologie van de wolf.</p>
+        </div>
+        <h3>Ontvangen Tops van klasgenoten:</h3>
+        <ul id="tops-list"></ul>
+    </section>
+
+    <section id="screen-leerkracht" class="hidden">
+        <h2>Informatie voor de Leerkracht</h2>
+        <p>Deze webkwestie integreert geschiedenis (jagers/verzamelaars) met moderne ecologie (biodiversiteit). Het stimuleert samenwerking over schoolgrenzen heen.</p>
+        
+        <h3>Organisatiemodel: Het "Stationsmodel"</h3>
+        <ul>
+            <li><strong>Station A:</strong> Chromebooks voor bronnenonderzoek.</li>
+            <li><strong>Station B:</strong> Overlegtafel voor de woordspin en teamoverleg.</li>
+            <li><strong>Station C:</strong> Presentatie-hoek voor de eindconclusie.</li>
+        </ul>
+        <p><em>Tip:</em> Gebruik een timer per fase om de voortgang te bewaken.</p>
+    </section>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getDatabase, ref, set, remove, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDDBMeg_s2f7V3nUA9d0CV0Vc_ytYz0ycs",
+    authDomain: "jezusendeman.firebaseapp.com",
+    databaseURL: "https://jezusendeman-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "jezusendeman",
+    storageBucket: "jezusendeman.firebasestorage.app",
+    messagingSenderId: "196835530316",
+    appId: "1:196835530316:web:629233a75171950b2a86e9"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // Navigatie Functie
+  window.showScreen = function(screenId) {
+      document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+      document.getElementById('screen-' + screenId).classList.remove('hidden');
+  };
+
+  // Login Functie
+  window.login = function() {
+      const name = document.getElementById('firstname').value;
+      const groep = document.getElementById('groep').value;
+      if(name) {
+          localStorage.setItem('userName', name);
+          set(ref(db, 'users/' + name), { groep: groep, loggedIn: new Date().toISOString() });
+          document.getElementById('main-nav').classList.remove('hidden');
+          showScreen('inleiding');
+      } else { alert("Vul je naam in!"); }
+  };
+
+  // Reset Functie
+  window.resetDatabase = function() {
+      if(confirm("Weet je zeker dat je ALLE data wilt verwijderen?")) {
+          remove(ref(db, '/')).then(() => alert("Database is leeg!"));
+      }
+  };
+
+  // Mindmap Node Toevoegen
+  window.addNode = function(type) {
+      const txt = prompt("Wat is het argument?");
+      if(txt) {
+          const div = document.createElement('div');
+          div.className = 'node';
+          div.innerText = txt;
+          document.getElementById('nodes-' + type).appendChild(div);
+      }
+  };
+
+  // Beoordeling Opslaan
+  window.saveAssessment = function() {
+      const targetUser = prompt("Voor wie is deze top?");
+      const inputs = document.querySelectorAll('.top-input');
+      inputs.forEach(input => {
+          if(input.value) {
+              push(ref(db, 'tops/' + targetUser), {
+                  from: localStorage.getItem('userName'),
+                  skill: input.dataset.skill,
+                  text: input.value
+              });
+          }
+      });
+      alert("Beoordeling verstuurd!");
+  };
+</script>
+
+</body>
+</html>
