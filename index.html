@@ -34,6 +34,7 @@
 
 <nav id="main-nav" class="hidden">
     <button onclick="showScreen('inleiding')">Inleiding</button>
+    <button onclick="showScreen('voorkennis')">Wat weet ik al?</button>
     <button onclick="showScreen('opdracht')">Opdracht</button>
     <button onclick="showScreen('verwerking')">Verwerking</button>
     <button onclick="showScreen('infobronnen')">Infobronnen</button>
@@ -126,7 +127,41 @@ bron:  Ede Stad, http://edestad.nl/lokaal/edenaar-oog-oog-met-wolf-bij-driespron
         </div>
         <footer>Voetnoot: Inleiding (Introduction): Een korte, motiverende inleiding die de leerling oriënteert.</footer>
     </section>
+   <section id="screen-voorkennis" class="hidden">
+    <h2>Wat weten we al over de wolf?</h2>
+    <p>Vul jouw kennis in en bekijk wat je klasgenoten al weten!</p>
 
+    <div style="background: #fff; padding: 20px; border: 2px solid #1abc9c; border-radius: 8px; margin-bottom: 30px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+            <div>
+                <label><strong>🌲 Natuur:</strong></label>
+                <textarea id="kennis-natuur" placeholder="Eten, uiterlijk..." style="width:100%; height:60px;"></textarea>
+            </div>
+            <div>
+                <label><strong>📚 Verhalen:</strong></label>
+                <textarea id="kennis-verhalen" placeholder="Sprookjes..." style="width:100%; height:60px;"></textarea>
+            </div>
+            <div>
+                <label><strong>🐾 Ervaring:</strong></label>
+                <textarea id="kennis-ervaring" placeholder="Gezien of gehoord..." style="width:100%; height:60px;"></textarea>
+            </div>
+        </div>
+        <button onclick="saveVoorkennis()" style="margin-top: 10px; background: #1abc9c; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px;">Deel met de klas</button>
+    </div>
+<div id="knowledge-container" class="hidden">
+    <hr>
+    <h3>💡 Inzichten van de klas:</h3>
+    <div id="all-knowledge-wall" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px;">
+        </div>
+</div>
+    <hr>
+
+    <h3>💡 Inzichten van de klas:</h3>
+    <div id="all-knowledge-wall" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px;">
+        </div>
+
+    <footer>Voetnoot: Voorkennis delen (Social Learning): Leerlingen zien elkaars input live verschijnen.</footer>
+</section>
     <section id="screen-opdracht" class="hidden">
         <h2>Opdracht</h2>
         <div style="background: #e8f6f3; padding: 20px; border-left: 5px solid #1abc9c;">
@@ -240,7 +275,49 @@ bron:  Ede Stad, http://edestad.nl/lokaal/edenaar-oog-oog-met-wolf-bij-driespron
           showScreen('inleiding');
       } else { alert("Vul je naam in!"); }
   };
+// 1. Voorkennis opslaan
+window.saveVoorkennis = function() {
+    const name = localStorage.getItem('userName');
+    const natuur = document.getElementById('kennis-natuur').value;
+    const verhalen = document.getElementById('kennis-verhalen').value;
+    const ervaring = document.getElementById('kennis-ervaring').value;
 
+    if(!natuur || !verhalen || !ervaring) return alert("Vul in alle vakjes iets in!");
+
+    set(ref(db, 'voorkennis/' + name), {
+        naam: name,
+        natuur: natuur,
+        verhalen: verhalen,
+        ervaring: ervaring,
+        tijd: new Date().toLocaleTimeString()
+    }).then(() => {
+        // Velden leegmaken na verzenden
+        document.getElementById('kennis-natuur').value = "";
+        document.getElementById('kennis-verhalen').value = "";
+        document.getElementById('kennis-ervaring').value = "";
+        alert("Jouw kennis staat op de muur!");
+    });
+};
+
+// 2. LIVE alle voorkennis ophalen en tonen
+onValue(ref(db, 'voorkennis/'), (snapshot) => {
+    const wall = document.getElementById('all-knowledge-wall');
+    wall.innerHTML = ""; // Maak leeg voor verversing
+    
+    snapshot.forEach((childSnapshot) => {
+        const data = childSnapshot.val();
+        const card = document.createElement('div');
+        card.style = "background: #f9f9f9; border-left: 5px solid #34495e; padding: 10px; border-radius: 4px; font-size: 0.9rem; box-shadow: 2px 2px 5px rgba(0,0,0,0.05)";
+        
+        card.innerHTML = `
+            <strong style="color: #2c3e50; border-bottom: 1px solid #ddd; display: block; margin-bottom: 5px;">${data.naam} <small>(${data.tijd})</small></strong>
+            <p style="margin: 5px 0;"><strong>🌲:</strong> ${data.natuur}</p>
+            <p style="margin: 5px 0;"><strong>📚:</strong> ${data.verhalen}</p>
+            <p style="margin: 5px 0;"><strong>🐾:</strong> ${data.ervaring}</p>
+        `;
+        wall.appendChild(card);
+    });
+});
   // Reset Functie
   window.resetDatabase = function() {
       if(confirm("Weet je zeker dat je ALLE data wilt verwijderen?")) {
