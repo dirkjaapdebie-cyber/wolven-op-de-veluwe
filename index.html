@@ -156,7 +156,7 @@ bron:  Ede Stad, http://edestad.nl/lokaal/edenaar-oog-oog-met-wolf-bij-driespron
 <div id="knowledge-container" class="hidden">
     <hr>
     <h3>💡 Inzichten van de klas:</h3>
-    <div id="all-knowledge-wall" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px;">
+    <div id="all-knowledge-wall" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
         </div>
 </div>
     <hr>
@@ -350,31 +350,66 @@ onValue(ref(db, 'voorkennis/'), (snapshot) => {
         wall.appendChild(card);
     });
 });
-// 2. LIVE alle voorkennis ophalen en tonen
+// --- LIVE FEED MET INTERACTIE ---
 onValue(ref(db, 'voorkennis/'), (snapshot) => {
     const wall = document.getElementById('all-knowledge-wall');
-    wall.innerHTML = ""; // Maak leeg voor verversing
-    
+    if (!wall) return;
+    wall.innerHTML = ""; 
+
     snapshot.forEach((childSnapshot) => {
+        const userId = childSnapshot.key; // De naam van de leerling
         const data = childSnapshot.val();
+        const likes = data.likes || 0;
+
         const card = document.createElement('div');
-        card.style = "background: #f9f9f9; border-left: 5px solid #34495e; padding: 10px; border-radius: 4px; font-size: 0.9rem; box-shadow: 2px 2px 5px rgba(0,0,0,0.05)";
+        card.style = "background: white; border: 1px solid #ddd; border-top: 5px solid #1abc9c; padding: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);";
         
         card.innerHTML = `
-            <strong style="color: #2c3e50; border-bottom: 1px solid #ddd; display: block; margin-bottom: 5px;">${data.naam} <small>(${data.tijd})</small></strong>
-            <p style="margin: 5px 0;"><strong>🌲:</strong> ${data.natuur}</p>
-            <p style="margin: 5px 0;"><strong>📚:</strong> ${data.verhalen}</p>
-            <p style="margin: 5px 0;"><strong>🐾:</strong> ${data.ervaring}</p>
+            <div style="font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">👤 ${data.naam}</div>
+            <div style="font-size: 0.9rem; margin-bottom: 10px;">
+                <p><strong>🌲 Natuur:</strong> ${data.natuur || '-'}</p>
+                <p><strong>📚 Verhalen:</strong> ${data.verhalen || '-'}</p>
+                <p><strong>🐾 Ervaring:</strong> ${data.ervaring || '-'}</p>
+            </div>
+            
+            <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                <button onclick="addLike('${userId}')" style="background: none; border: 1px solid #ccc; cursor: pointer; border-radius: 4px;">👍 ${likes}</button>
+                
+                <select onchange="addFeedback('${userId}', this.value); this.value=''" style="margin-left: 5px; font-size: 0.8rem; padding: 3px;">
+                    <option value="">Geef een compliment...</option>
+                    <option value="Wat een goed verhaal!">Wat een goed verhaal!</option>
+                    <option value="Dat wist ik nog niet!">Dat wist ik nog niet!</option>
+                    <option value="Mooi beschreven!">Mooi beschreven!</option>
+                    <option value="Interessant punt!">Interessant punt!</option>
+                </select>
+                
+                <div id="feedback-list-${userId}" style="margin-top: 8px; font-size: 0.75rem; font-style: italic; color: #555;">
+                    ${data.feedback ? Object.values(data.feedback).map(f => `<div>💬 ${f}</div>`).join('') : ''}
+                </div>
+            </div>
         `;
         wall.appendChild(card);
     });
 });
-  // Reset Functie
-  window.resetDatabase = function() {
-      if(confirm("Weet je zeker dat je ALLE data wilt verwijderen?")) {
-          remove(ref(db, '/')).then(() => alert("Database is leeg!"));
-      }
-  };
+
+// --- FUNCTIES VOOR INTERACTIE ---
+
+// 1. Duimpje toevoegen
+window.addLike = function(targetUser) {
+    const likeRef = ref(db, `voorkennis/${targetUser}/likes`);
+    // We halen de huidige likes op en doen er +1
+    onValue(likeRef, (snapshot) => {
+        const currentLikes = snapshot.val() || 0;
+        set(likeRef, currentLikes + 1);
+    }, { onlyOnce: true });
+};
+
+// 2. Feedback tekstje toevoegen
+window.addFeedback = function(targetUser, text) {
+    if(!text) return;
+    const feedbackRef = push(ref(db, `voorkennis/${targetUser}/feedback`));
+    set(feedbackRef, text);
+};
 
   // Mindmap Node Toevoegen
   window.addNode = function(type) {
