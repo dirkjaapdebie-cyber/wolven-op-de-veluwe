@@ -21,14 +21,13 @@
         #mindmap-area { border: 2px dashed #ccc; padding: 20px; margin-top: 20px; border-radius: 10px; background: #fafafa; }
         .node { background: #fff; border: 2px solid #2c3e50; padding: 10px; margin: 5px; display: inline-block; border-radius: 5px; }
         
-        /* Rubric Table */
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
         th { background-color: #2c3e50; color: white; }
         
         footer { font-size: 0.8rem; color: #7f8c8d; margin-top: 40px; border-top: 1px solid #eee; padding-top: 10px; }
         .reset-btn { background: #e74c3c; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; float: right; }
-        textarea { width: 100%; height: 60px; border-radius: 4px; border: 1px solid #ccc; padding: 5px; }
+        textarea { width: 100%; height: 60px; border-radius: 4px; border: 1px solid #ccc; padding: 5px; resize: vertical; }
     </style>
 </head>
 <body>
@@ -47,11 +46,9 @@
 <div class="container">
     <section id="screen-login">
         <h1>Welkom bij de Webkwestie</h1>
-        
         <div style="text-align: center; margin-bottom: 20px;">
             <img src="wolfopveluwe.png" alt="Wolf op de Veluwe" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
         </div>
-
         <p>Voer je gegevens in om te starten:</p>
         <input type="text" id="firstname" placeholder="Je voornaam...">
         <select id="groep">
@@ -60,7 +57,7 @@
         </select>
         <button onclick="login()">Start Webkwestie</button>
         <hr>
-        <button class="reset-btn" onclick="resetDatabase()">Reset Database (Verwijder alle data)</button>
+        <button class="reset-btn" onclick="resetDatabase()">Reset Database</button>
     </section>
 
     <section id="screen-inleiding" class="hidden">
@@ -68,72 +65,50 @@
             <h2>WOLVEN OP DE VELUWE</h2>
             <div class="author">Door: Eip Janssen en Jannes Bijlsma</div>
             <p><strong>Het is rond 8.00 uur als de inwoner van Ede...</strong> 19-10-2017, 23:19 | Van de redactie<br>
-            EDE<br> Edenaar Robertjan van der Heijden maakt woensdagochtend zijn dagelijkse fietstocht naar his werk in Barneveld, als hij in het bos langs de Apeldoornseweg (N304) tussen Ede en de rotonde bij de Driesprong plots oog-in-oog staat met een wolf. ,,Dat was best even schrikken", vertelt Van der Heijden.Eip Janssen en Jannes Bijlsma<br><br>
-            Het is rond 8.00 uur als de inwoner van Ede, op ongeveer een kilometer buiten zijn woonplaats, in de schemerende verte een dier ziet dat op een hond lijkt. Dat bevreemdt hem. ,,Het is absoluut geen plek om je hond uit te laten. Ik zag er ook niemand bij staan of lopen." Hoe dichter Van der Heijden bij het dier in de buurt komt, hoe groter hij lijkt te worden. Hij remt af. ,,Ik had niet de intentie om hem op het fietspad voorbij te gaan. Je schrikt er namelijk toch van. Ik kwam bijna tot stilstand en het beest keek me aan."<br>
-            Dat het een wolf was, wordt hem wel duidelijk als hij op ongeveer vijf meter afstand van het dier komt. ,,Ik weet wel hoe een wolf er uit ziet. In de dierentuin heb ik die ook al eens gezien." Op ongeveeramp vijf meter afstand besluit de wolf de provinciale weg over te steken. ,,Ik verstijfde, schrok en keek nog even goed om me heen, om zeker te weten dat de wolf niet alleen was." Toen Robertjan daar van overtuigd was, fietste hij door. ,,Dan pas dringt het echt tot je door wat je hebt gezien. Even twijfelde ik of ik er nog achteraan moest gaan om een foto te maken, maar dat heb ik toch maar niet gedaan."<br><br>
-            GEWELDIG Van der Heijden, die in Ede bij BIT.NL in de hoofdmacht tafeltennist, gaf aan het achteraf geweldig te hebben gevonden. ,,Zo maak je wat mee. Dat is eens wat anders dan een tafeltennisballetje overslaan. Een wolf in het echt zien, dat kunnen niet veel mensen mij navertellen", besluit Robertjan van der Heijden zijn avontuur<br>
-            IDENTIEKE MELDING Bij zijn werk gearriveerd in Barneveld zoekt hij direct telefonisch contact met de politie. ,,Ik heb de politie gebeld die mij doorverwees. Er werd mij gevraagd wat ik precies gezien had. Eerst werd gemeld dat moest worden uitgezocht of het wel om een wolf ging in plaats van een hond. Maar ik was echt overtuigd dat ik een echte wolf had gezien. Later bleek dat te kloppen. Een andere melding van een mevrouw die op de provinciale weg reed, was identiek." In de loop van de dag kwamen er nog meer meldingen binnen op de site. ,,Daar zat ook iemand bij die wel een foto had gemaakt."<br><br>
-            DIVERSER EN SPANNENDER De afgelopen week is het dier op verschillende plekken op de Veluwe gezien. Op basis van fotomateriaal hebben experts van Wolven in Nederland en Lupus Institut uit Duitsland bevestigd dat het om een wolf gaat. Volgens de provincie Gelderland is de wolf gebaat bij rust en is hij waarschijnlijk afkomstig uit Duitsland. Daarom is het voorzichtig in het noemen van specifieke locaties waar het dier is gespot. ,,Hij zal nu waarschijnlijk niet meer in de buurt van Ede en Barneveld rondlopen", denkt Van der Heijden. ,,Zo'n dier loopt toch zo'n dertig kilometer per dag, dus het kan goed zijn dat hij zich alweer richting de grens heeft verplaatst."<br><br>
-            Natuurmonumenten noemt de komst van het roofdier goed nieuws. ,,Als de wolf terugkeert, laat dat zien dat er in ons drukke land nog plekken zijn voor een toppredator als de wolf: grote robuuste natuurgebieden waar ruimte is voor natuurlijke processen. De wolf maakt de Nederlandse natuur diverser en spannender."<br>
-            bron:  Ede Stad, http://edestad.nl/lokaal/edenaar-oog-oog-met-wolf-bij-driesprong-ede-282634</p>
-            <p>Natuurmonumenten noemt de komst van het roofdier goed nieuws. De wolf maakt de Nederlandse natuur diverser en spannender.</p>
+            EDE - Edenaar Robertjan van der Heijden maakt woensdagochtend zijn dagelijkse fietstocht naar zijn werk in Barneveld, als hij in het bos langs de Apeldoornseweg (N304) tussen Ede en de rotonde bij de Driesprong plots oog-in-oog staat met een wolf. ,,Dat was best even schrikken", vertelt Van der Heijden.</p>
+            <p>Het is rond 8.00 uur als de inwoner van Ede, op ongeveer een kilometer buiten zijn woonplaats, in de schemerende verte een dier ziet dat op een hond lijkt. Dat bevreemdt hem. ,,Het is absoluut geen plek om je hond uit te laten. Ik zag er ook niemand bij staan of lopen." Hoe dichter Van der Heijden bij het dier in de buurt komt, hoe groter hij lijkt te worden. Hij remt af. ,,Ik had niet de intentie om hem op het fietspad voorbij te gaan. Je schrikt er namelijk toch van. Ik kwam bijna tot stilstand en het beest keek me aan."</p>
+            <p>Dat het een wolf was, wordt hem wel duidelijk als hij op ongeveer vijf meter afstand van het dier komt. Op ongeveer vijf meter afstand besluit de wolf de provinciale weg over te steken. ,,Ik verstijfde, schrok en keek nog even goed om me heen, om zeker te weten dat de wolf niet alleen was." Toen Robertjan daar van overtuigd was, fietste hij door. ,,Dan pas dringt het echt tot je door wat je hebt gezien."</p>
+            <p>GEWELDIG Van der Heijden gaf aan het achteraf geweldig te hebben gevonden. ,,Zo maak je wat mee. Een wolf in het echt zien, dat kunnen niet veel mensen mij navertellen." IDENTIEKE MELDING Bij zijn werk gearriveerd in Barneveld zoekt hij direct telefonisch contact met de politie. Later bleek dat te kloppen. Een andere melding van een mevrouw die op de provinciale weg reed, was identiek.</p>
+            <p>DIVERSER EN SPANNENDER De afgelopen week is het dier op verschillende plekken op de Veluwe gezien. Experts hebben bevestigd dat het om een wolf gaat. Natuurmonumenten noemt de komst van het roofdier goed nieuws. ,,Als de wolf terugkeert, laat dat zien dat er in ons drukke land nog plekken zijn voor een toppredator als de wolf. De wolf maakt de Nederlandse natuur diverser en spannender."</p>
         </div>
         <div style="margin-top: 20px;">
             <iframe width="100%" height="400" src="https://www.youtube.com/embed/p0KTqVoSEJ0" frameborder="0" allowfullscreen></iframe>
         </div>
-        <footer>Voetnoot: Inleiding (Introduction): Een korte, motiverende inleiding die de leerling oriënteert.</footer>
     </section>
 
     <section id="screen-voorkennis" class="hidden">
         <h2>Wat weet jij over de wolf?</h2>
         <p>Vul jouw kennis in en bekijk wat je klasgenoten al weten!</p>
-
         <div style="background: #fff; padding: 20px; border: 2px solid #1abc9c; border-radius: 8px; margin-bottom: 30px;">
             <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
-                <div>
-                    <label><strong>🌲 Natuur:</strong></label>
-                    <textarea id="kennis-natuur" placeholder="Eten, uiterlijk..."></textarea>
-                </div>
-                <div>
-                    <label><strong>📚 Verhalen:</strong></label>
-                    <textarea id="kennis-verhalen" placeholder="Sprookjes..."></textarea>
-                </div>
-                <div>
-                    <label><strong>🐾 Ervaring:</strong></label>
-                    <textarea id="kennis-ervaring" placeholder="Gezien of gehoord..."></textarea>
-                </div>
+                <div><label><strong>🌲 Natuur:</strong></label><textarea id="kennis-natuur" placeholder="Eten, uiterlijk..."></textarea></div>
+                <div><label><strong>📚 Verhalen:</strong></label><textarea id="kennis-verhalen" placeholder="Sprookjes..."></textarea></div>
+                <div><label><strong>🐾 Ervaring:</strong></label><textarea id="kennis-ervaring" placeholder="Gezien of gehoord..."></textarea></div>
             </div>
             <button onclick="saveVoorkennis()" style="margin-top: 10px; background: #1abc9c; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px;">Deel met de klas</button>
         </div>
-
+        
         <div id="knowledge-container" class="hidden">
             <hr>
             <h3>💡 Inzichten van de klas:</h3>
             <div id="all-knowledge-wall" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 20px;"></div>
         </div>
-
-        <footer>Voetnoot: Voorkennis delen (Social Learning): Leerlingen zien elkaars input live verschijnen.</footer>
     </section>
 
     <section id="screen-opdracht" class="hidden">
         <h2>Opdracht</h2>
         <div style="background: #e8f6f3; padding: 20px; border-left: 5px solid #1abc9c;">
-            <p><strong>Deskundigen,</strong> voor jullie de opdracht om de wolf te laten terugkeren op de Veluwe... Jullie maken een mindmap. Daarin laat je zien:<br>
-            * Waarom voorstanders de wolf op de Veluwe laten leven<br>
-            * Waarom de tegenstanders de wolf willen weghebben<br>
-            * Wat moet er aan de Veluwe veranderen om de wolf daar te laten leven?</p>
+            <p><strong>Deskundigen,</strong> voor jullie de opdracht om de wolf te laten terugkeren op de Veluwe... Jullie maken een mindmap. Daarin laat je zien:</p>
             <ul>
-                <li>Geschiedenisdeskundige: Onderzoekt het verleden van Ede en de wolf.</li>
-                <li>Biologiedeskundige: Onderzoekt wat de wolf nodig heeft om te overleven.</li>
+                <li>Waarom voorstanders de wolf op de Veluwe laten leven.</li>
+                <li>Waarom de tegenstanders de wolf willen weghebben.</li>
+                <li>Wat moet er aan de Veluwe veranderen om de wolf daar te laten leven?</li>
             </ul>
         </div>
-        <footer>Voetnoot: Opdracht (Task): Duidelijke beschrijving van het doel.</footer>
     </section>
 
     <section id="screen-verwerking" class="hidden">
         <h2>Verwerking</h2>
-        <p>Maak hier je woordspin/mindmap over de voor- en tegenstanders van de wolf.</p>
-        
         <div id="mindmap-area">
             <h3>Mindmap Tool</h3>
             <div id="mindmap-container">
@@ -141,86 +116,49 @@
                 <div id="nodes-voor"><strong>Voorstanders:</strong> <button onclick="addNode('voor')">+</button></div>
                 <div id="nodes-tegen"><strong>Tegenstanders:</strong> <button onclick="addNode('tegen')">+</button></div>
             </div>
-            <button onclick="saveMindmap()" style="margin-top: 20px; background: #2c3e50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Mindmap Definitief Opslaan & Delen</button>
-            <button onclick="window.print()" style="margin-top: 20px;">Mindmap afdrukken</button>
+            <button onclick="saveMindmap()" style="margin-top: 15px; background: #2c3e50; color: white; padding: 10px; border: none; border-radius: 5px;">Mindmap Definitief Opslaan</button>
         </div>
-        <footer>Voetnoot: Verwerking (Process): Stap-voor-stap beschrijving.</footer>
     </section>
 
     <section id="screen-infobronnen" class="hidden">
         <h2>Informatiebronnen</h2>
-        <p>Gebruik de onderstaande bronnen om je onderzoek te doen. Let goed op welke links bij jouw rol horen!</p>
-
         <div style="display: flex; gap: 20px; flex-wrap: wrap;">
             <div style="flex: 1; min-width: 300px; background: #fef9e7; padding: 15px; border-radius: 8px; border-left: 5px solid #f1c40f;">
                 <h3>📜 Geschiedenisdeskundigen</h3>
-                <p>Onderzoek de geschiedenis van Ede en de Veluwe:</p>
                 <ul>
                     <li><a href="https://www.canonvannederland.nl/nl/gelderland/ede/prehistorie" target="_blank">Jagers en Verzamelaars in Ede</a></li>
                     <li><a href="https://www.ede.nl/vrije-tijd/bezoek-ede/historie/grafheuvels" target="_blank">Grafheuvels op de Veluwe</a></li>
-                    <li><a href="https://mijngelderland.nl/inhoud/verhalen/enka-ede" target="_blank">Ede als stad met fabrieken (De ENKA)</a></li>
                 </ul>
             </div>
-
             <div style="flex: 1; min-width: 300px; background: #ebf5fb; padding: 15px; border-radius: 8px; border-left: 5px solid #3498db;">
                 <h3>🐺 Biologiedeskundigen</h3>
-                <p>Onderzoek het leven van de wolf:</p>
                 <ul>
-                    <li><a href="https://nl.wikipedia.org/wiki/Wolf" target="_blank">De Wolf (Wikipedia)</a></li>
                     <li><a href="https://www.wolveninnederland.nl/" target="_blank">Wolven in Nederland</a></li>
-                    <li><a href="https://schooltv.nl/video/de-wolf-een-roofdier-met-een-slecht-imago/" target="_blank">De Wolf (Film NTR Beeldbank)</a></li>
-                    <li><a href="http://hetrijkvandewolf.marianvanderheiden.com/paginas/extrainfo.htm" target="_blank">Het rijk van de wolf - Extra info</a></li>
-                    <li><a href="https://www.wnf.nl/dieren/wolf" target="_blank">Wanneer komt de wolf? (WNF info)</a></li>
-                    <li><a href="https://www.ark.eu/natuurontwikkeling/sleutelsoorten/wolf" target="_blank">Gemis aan grote roofdieren</a></li>
+                    <li><a href="https://www.wnf.nl/dieren/wolf" target="_blank">WNF info</a></li>
                 </ul>
             </div>
         </div>
-
-        <hr>
-
-        <div style="background: #fff; border: 2px solid #2c3e50; padding: 20px; margin-top: 20px;">
-            <h3>📖 Opdracht: De Krant & Jouw Presentatie</h3>
-            <p><em>"Wolven lusten geen Roodkapjes"</em></p>
-            <p>Lees het krantenartikel in de inleiding nog eens goed door. De schrijver beweert iets over de wolf in de Nederlandse natuurgebieden.</p>
-            <blockquote style="font-style: italic; border-left: 3px solid #ccc; padding-left: 10px;">
-                "Gebruik in jouw presentatie de redenen uit dit artikel om uit te leggen waarom jij vindt dat de wolf wel of niet terug mag komen in Nederland."
-            </blockquote>
-        </div>
-
-        <div style="margin-top: 20px; text-align: center;">
-            <p>Niks gevonden? Gebruik <a href="https://www.google.nl" target="_blank">Google</a> om zelf verder te zoeken.</p>
-        </div>
-        <footer>Voetnoot: Infobronnen / Bronnen (Resources): Een lijst met geselecteerde media om de opdracht te voltooien.</footer>
     </section>
 
     <section id="screen-beoordeling" class="hidden">
-        <h2>Beoordeling & Mindmap Galerij</h2>
-        <p>Bekijk de ingeleverde mindmaps van je klasgenoten en vul per mindmap een 'Top' in!</p>
-        
-        <div id="mindmap-galerij" style="display: grid; grid-template-columns: 1fr; gap: 25px; margin-top: 20px;">
+        <h2>Beoordeling: Kijk bij elkaar</h2>
+        <p>Kies een klasgenoot om de mindmap te bekijken en geef een compliment (Top!).</p>
+        <div id="mindmap-galerij" style="display: grid; grid-template-columns: 1fr; gap: 30px;">
             </div>
     </section>
 
     <section id="screen-afsluiting" class="hidden">
         <h2>Afsluiting</h2>
-        <div id="summary-box">
-            <p>Gefeliciteerd! Je hebt onderzocht hoe de wolf een plek kan krijgen op de Veluwe. Je hebt geleerd over de geschiedenis van Ede en de biologie van de wolf.</p>
+        <p>Gefeliciteerd! Je hebt het onderzoek afgerond.</p>
+        <div id="summary-box" style="background: #fdfefe; border: 1px solid #ddd; padding: 20px; border-radius: 8px;">
+            <h3>🌟 Ontvangen Complimenten van de klas:</h3>
+            <ul id="tops-list" style="padding-left: 0;"></ul>
         </div>
-        <h3>Ontvangen Tops van klasgenoten:</h3>
-        <ul id="tops-list" style="padding: 0;"></ul>
     </section>
 
     <section id="screen-leerkracht" class="hidden">
-        <h2>Informatie voor de Leerkracht</h2>
-        <p>Deze webkwestie integreert geschiedenis (jagers/verzamelaars) met moderne ecologie (biodiversiteit). Het stimuleert samenwerking over schoolgrenzen heen.</p>
-        
-        <h3>Organisatiemodel: Het "Stationsmodel"</h3>
-        <ul>
-            <li><strong>Station A:</strong> Chromebooks voor bronnenonderzoek.</li>
-            <li><strong>Station B:</strong> Overlegtafel voor de woordspin en teamoverleg.</li>
-            <li><strong>Station C:</strong> Presentatie-hoek voor de eindconclusie.</li>
-        </ul>
-        <p><em>Tip:</em> Gebruik een timer per fase om de voortgang te bewaken.</p>
+        <h2>Voor de leerkracht</h2>
+        <p>Gebruik het stationsmodel voor deze webkwestie.</p>
     </section>
 </div>
 
@@ -241,34 +179,28 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    // Navigatie Functie
     window.showScreen = function(screenId) {
         document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
         document.getElementById('screen-' + screenId).classList.remove('hidden');
     };
 
-    // Login Functie
     window.login = function() {
         const name = document.getElementById('firstname').value;
-        const groep = document.getElementById('groep').value;
         if(name) {
             localStorage.setItem('userName', name);
-            set(ref(db, 'users/' + name), { groep: groep, loggedIn: new Date().toISOString() });
+            set(ref(db, 'users/' + name), { loggedIn: new Date().toISOString() });
             document.getElementById('main-nav').classList.remove('hidden');
             showScreen('inleiding');
         } else { alert("Vul je naam in!"); }
     };
 
-    // Voorkennis opslaan
+    // --- VOORKENNIS LOGICA ---
     window.saveVoorkennis = function() {
         const name = localStorage.getItem('userName');
         const natuur = document.getElementById('kennis-natuur').value;
         const verhalen = document.getElementById('kennis-verhalen').value;
         const ervaring = document.getElementById('kennis-ervaring').value;
-
-        if(!natuur.trim() && !verhalen.trim() && !ervaring.trim()) {
-            return alert("Vertel eerst even iets over de wolf in tenminste één vakje!");
-        }
+        if(!natuur && !verhalen && !ervaring) return alert("Vul minstens één vakje in!");
 
         set(ref(db, 'voorkennis/' + name), {
             naam: name,
@@ -279,61 +211,50 @@
             likes: 0
         }).then(() => {
             document.getElementById('knowledge-container').classList.remove('hidden');
-            document.getElementById('knowledge-container').scrollIntoView({ behavior: 'smooth' });
-            alert("Top! Je bijdrage staat op de muur. Kijk nu maar eens wat de rest vindt.");
         });
     };
 
-    // Centrale luisteraar voor de voorkennis livefeed
     onValue(ref(db, 'voorkennis/'), (snapshot) => {
         const wall = document.getElementById('all-knowledge-wall');
         if (!wall) return;
-        wall.innerHTML = ""; 
-
+        wall.innerHTML = "";
         snapshot.forEach((childSnapshot) => {
             const userId = childSnapshot.key;
             const data = childSnapshot.val();
             const card = document.createElement('div');
             card.style = "background: white; border: 1px solid #ddd; border-top: 5px solid #1abc9c; padding: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);";
-            
             card.innerHTML = `
-                <div style="font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">👤 ${data.naam}</div>
-                <div style="font-size: 0.85rem;">
-                    <p><strong>🌲:</strong> ${data.natuur}</p>
-                    <p><strong>📚:</strong> ${data.verhalen}</p>
-                    <p><strong>🐾:</strong> ${data.ervaring}</p>
+                <div style="font-weight: bold; margin-bottom: 5px;">👤 ${data.naam}</div>
+                <div style="font-size: 0.8rem;">
+                    <p>🌲: ${data.natuur}</p>
+                    <p>📚: ${data.verhalen}</p>
+                    <p>🐾: ${data.ervaring}</p>
                 </div>
-                <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin-top: 10px;">
-                    <button onclick="addLike('${userId}')" style="cursor:pointer; border-radius:4px; border:1px solid #ccc;">👍 ${data.likes || 0}</button>
-                    <select onchange="addFeedback('${userId}', this.value); this.value=''" style="font-size:0.7rem; margin-left:5px;">
+                <div style="margin-top:10px;">
+                    <button onclick="addLike('${userId}')">👍 ${data.likes || 0}</button>
+                    <select onchange="addFeedback('${userId}', this.value); this.value=''" style="font-size:0.7rem;">
                         <option value="">Compliment...</option>
-                        <option value="Wat een goed verhaal!">Goed verhaal!</option>
-                        <option value="Mooi beschreven!">Mooi!</option>
-                        <option value="Dat wist ik nog niet!">Wist ik niet!</option>
+                        <option value="Goed verhaal!">Goed verhaal!</option>
+                        <option value="Wist ik niet!">Wist ik niet!</option>
                     </select>
-                    <div style="margin-top:5px; font-size:0.7rem; color:#666;">
+                    <div style="font-size:0.7rem; color:#666; margin-top:5px;">
                         ${data.feedback ? Object.values(data.feedback).map(f => `<div>💬 ${f}</div>`).join('') : ''}
                     </div>
-                </div>
-            `;
+                </div>`;
             wall.appendChild(card);
         });
     });
 
-    window.addLike = function(targetUser) {
-        const likeRef = ref(db, `voorkennis/${targetUser}/likes`);
-        onValue(likeRef, (snapshot) => {
-            const currentLikes = snapshot.val() || 0;
-            set(likeRef, currentLikes + 1);
-        }, { onlyOnce: true });
+    window.addLike = function(u) {
+        const r = ref(db, `voorkennis/${u}/likes`);
+        onValue(r, s => set(r, (s.val() || 0) + 1), {onlyOnce: true});
     };
 
-    window.addFeedback = function(targetUser, text) {
-        if(!text) return;
-        push(ref(db, `voorkennis/${targetUser}/feedback`), text);
+    window.addFeedback = function(u, t) {
+        if(t) push(ref(db, `voorkennis/${u}/feedback`), t);
     };
 
-    // Mindmap Node Toevoegen
+    // --- MINDMAP & BEOORDELING LOGICA ---
     window.addNode = function(type) {
         const txt = prompt("Wat is het argument?");
         if(txt) {
@@ -344,111 +265,60 @@
         }
     };
 
-    // Mindmap Opslaan & Delen naar Firebase
     window.saveMindmap = function() {
         const name = localStorage.getItem('userName');
-        if(!name) return alert("Log eerst opnieuw in.");
-        
-        const voorNodes = Array.from(document.getElementById('nodes-voor').querySelectorAll('.node')).map(n => n.innerText);
-        const tegenNodes = Array.from(document.getElementById('nodes-tegen').querySelectorAll('.node')).map(n => n.innerText);
-
-        set(ref(db, 'mindmaps/' + name), {
-            maker: name,
-            voor: voorNodes,
-            tegen: tegenNodes
-        }).then(() => alert("Je mindmap is succesvol gedeeld met de klas! Ga nu naar het tabblad 'Beoordeling'."));
+        const voor = Array.from(document.getElementById('nodes-voor').querySelectorAll('.node')).map(n => n.innerText);
+        const tegen = Array.from(document.getElementById('nodes-tegen').querySelectorAll('.node')).map(n => n.innerText);
+        set(ref(db, 'mindmaps/' + name), { maker: name, voor, tegen }).then(() => alert("Mindmap is gedeeld!"));
     };
 
-    // Mindmaps ophalen en tonen in de Beoordelings-galerij
     onValue(ref(db, 'mindmaps/'), (snapshot) => {
         const galerij = document.getElementById('mindmap-galerij');
         if (!galerij) return;
         galerij.innerHTML = "";
-
         snapshot.forEach((childSnapshot) => {
-            const maker = childSnapshot.key;
             const data = childSnapshot.val();
-            
-            // Verberg eigen mindmap om zelf-beoordeling te voorkomen
+            const maker = childSnapshot.key;
             if(maker === localStorage.getItem('userName')) return;
 
-            const item = document.createElement('div');
-            item.style = "border: 1px solid #ddd; border-left: 6px solid #2c3e50; padding: 20px; border-radius: 8px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05);";
-            
-            item.innerHTML = `
-                <h3 style="margin-top: 0; color: #2c3e50;">🗺️ Mindmap van: ${data.maker}</h3>
-                <div style="display: flex; gap: 20px; background: #f9f9f9; padding: 12px; border-radius: 6px; margin-bottom: 15px;">
-                    <div style="flex:1"><strong>🌲 Voorstanders:</strong><br>${data.voor && data.voor.length > 0 ? data.voor.map(n => `<span class="node" style="font-size:0.8rem; padding:4px 8px;">${n}</span>`).join('') : '<em>Nog geen argumenten</em>'}</div>
-                    <div style="flex:1"><strong>❌ Tegenstanders:</strong><br>${data.tegen && data.tegen.length > 0 ? data.tegen.map(n => `<span class="node" style="font-size:0.8rem; padding:4px 8px;">${n}</span>`).join('') : '<em>Nog geen argumenten</em>'}</div>
+            const div = document.createElement('div');
+            div.style = "border: 2px solid #ddd; padding: 15px; border-radius: 10px; background: #fff;";
+            div.innerHTML = `
+                <h3>Mindmap van: ${maker}</h3>
+                <div style="font-size: 0.9rem; margin-bottom:10px;">
+                    <strong>Voor:</strong> ${data.voor.join(', ') || 'Niets'}<br>
+                    <strong>Tegen:</strong> ${data.tegen.join(', ') || 'Niets'}
                 </div>
-                
-                <div style="background: #eaf2f8; padding: 15px; border-radius: 6px;">
-                    <h4 style="margin: 0 0 10px 0; color: #2980b9;">🌟 Geef een Top!</h4>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
-                        <div>
-                            <label style="font-size:0.85rem; font-weight:bold;">Inhoud & Argumenten:</label>
-                            <input type="text" id="top-inhoud-${maker}" placeholder="Wat is er goed aan de inhoud?" style="width:90%; padding:6px; margin-top:4px;">
-                        </div>
-                        <div>
-                            <label style="font-size:0.85rem; font-weight:bold;">Samenwerking/Ontwerp:</label>
-                            <input type="text" id="top-samen-${maker}" placeholder="Wat is er goed aan het ontwerp?" style="width:90%; padding:6px; margin-top:4px;">
-                        </div>
-                    </div>
-                    <button onclick="submitBeoordeling('${maker}')" style="background: #1abc9c; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">Verstuur beoordeling</button>
-                </div>
+                <input type="text" id="top-inhoud-${maker}" placeholder="Top voor inhoud..." style="width:70%;">
+                <button onclick="submitBeoordeling('${maker}')" style="background:#1abc9c; color:white; border:none; padding:5px; border-radius:4px;">Verstuur Top</button>
             `;
-            galerij.appendChild(item);
+            galerij.appendChild(div);
         });
     });
 
-    // Beoordeling definitief wegschrijven
-    window.submitBeoordeling = function(targetUser) {
-        const inhoudVal = document.getElementById(`top-inhoud-${targetUser}`).value;
-        const samenVal = document.getElementById(`top-samen-${targetUser}`).value;
-        const vanGebruiker = localStorage.getItem('userName');
-
-        if(!inhoudVal.trim() || !samenVal.trim()) {
-            return alert("Vul alsjeblieft beide feedbackvelden in voor je klasgenoot!");
-        }
-
-        const topsRef = ref(db, 'tops/' + targetUser);
-        push(topsRef, {
-            van: vanGebruiker,
-            inhoud: inhoudVal,
-            samenwerking: samenVal
-        }).then(() => {
-            document.getElementById(`top-inhoud-${targetUser}`).value = "";
-            document.getElementById(`top-samen-${targetUser}`).value = "";
-            alert("Je Top is succesvol verstuurd naar " + targetUser + "!");
-        });
+    window.submitBeoordeling = function(target) {
+        const t = document.getElementById(`top-inhoud-${target}`).value;
+        if(!t) return alert("Typ eerst een top!");
+        push(ref(db, 'tops/' + target), { van: localStorage.getItem('userName'), tekst: t });
+        alert("Top verzonden!");
     };
 
-    // Tops ophalen op het afsluitingsscherm
+    // --- AFSLUITING LOGICA ---
     onValue(ref(db, 'tops/' + localStorage.getItem('userName')), (snapshot) => {
         const list = document.getElementById('tops-list');
         if(!list) return;
         list.innerHTML = "";
-        
-        if(!snapshot.exists()){
-            list.innerHTML = "<p style='font-style:italic; color:#7f8c8d;'>Je hebt nog geen Tops ontvangen van je klasgenoten. Vraag ze om jouw mindmap te beoordelen!</p>";
-            return;
-        }
-
-        snapshot.forEach((childSnapshot) => {
-            const feedback = childSnapshot.val();
+        snapshot.forEach((child) => {
+            const val = child.val();
             const li = document.createElement('li');
-            li.innerHTML = `<strong>👤 Van ${feedback.van}:</strong><br>
-                            🎯 <em>Inhoud:</em> ${feedback.inhoud}<br>
-                            🤝 <em>Samenwerking/Ontwerp:</em> ${feedback.samenwerking}`;
-            li.style = "background: #e8f6f3; border-left: 5px solid #1abc9c; margin-bottom: 12px; padding: 12px; border-radius: 6px; list-style: none; box-shadow: 0 2px 4px rgba(0,0,0,0.02);";
+            li.style = "list-style:none; background:#e8f6f3; padding:10px; margin-bottom:5px; border-radius:5px;";
+            li.innerHTML = `🌟 <strong>${val.van}:</strong> ${val.tekst}`;
             list.appendChild(li);
         });
     });
 
     window.resetDatabase = function() {
-        if(confirm("Weet je zeker dat je alle data uit de database wilt wissen? Dit kan niet ongedaan worden gemaakt!")) {
-            remove(ref(db, '/')).then(() => location.reload());
-        }
+        if(confirm("Zeker weten?")) remove(ref(db, '/')).then(() => location.reload());
     };
 </script>
 </body>
