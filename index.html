@@ -15,7 +15,8 @@
         /* Krantenartikel */
         .newspaper { column-count: 2; column-gap: 40px; text-align: justify; border-top: 2px solid #000; padding-top: 20px; }
         .newspaper h2 { column-span: all; text-align: center; font-family: 'Times New Roman', serif; font-size: 2.2rem; margin-bottom: 10px; }
-        
+        .author { font-style: italic; margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
+
         /* Rubric Table */
         table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; }
         table, th, td { border: 1px solid #ddd; }
@@ -23,11 +24,13 @@
         td { padding: 10px; vertical-align: top; }
         tr:nth-child(even) { background-color: #f9f9f9; }
 
-        /* Mindmap & Cards */
-        .node { background: #fff; border: 2px solid #2c3e50; padding: 10px; margin: 5px; display: inline-block; border-radius: 5px; }
+        /* Mindmap Styles */
+        #mindmap-area { border: 2px dashed #ccc; padding: 20px; margin-top: 20px; border-radius: 10px; background: #fafafa; }
+        .node { background: #fff; border: 2px solid #2c3e50; padding: 10px; margin: 5px; display: inline-block; border-radius: 5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.05); }
+        
         .card { background: white; border: 1px solid #ddd; border-top: 5px solid #1abc9c; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
-        .btn-primary { background: #1abc9c; color: white; border: none; padding: 11px 20px; border-radius: 4px; cursor: pointer; }
-        input { padding: 10px; border-radius: 4px; border: 1px solid #ccc; }
+        .btn-primary { background: #1abc9c; color: white; border: none; padding: 11px 20px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        input { padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -42,15 +45,18 @@
 </nav>
 
 <div class="container">
-    <!-- LOGIN -->
+    <!-- LOGIN SCHERM -->
     <section id="screen-login">
-        <h1>Project: Wolven op de Veluwe</h1>
-        <img src="wolfopveluwe.png" id="main-wolf-img" alt="Wolf op de Veluwe" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-
-        <div style="background: #e8f6f3; padding: 20px; border-radius: 8px;">
-            <h3>Start je onderzoek</h3>
-            <input type="text" id="firstname" placeholder="Voer je naam in...">
-            <button onclick="login()" class="btn-primary">Starten</button>
+        <h1 style="color: #2c3e50;">Project: Wolven op de Veluwe</h1>
+        <p><em>Een interactieve leeromgeving voor het basisonderwijs</em></p>
+        <div style="text-align: center; margin: 20px 0;">
+            <!-- Gebruik hier je eigen wolfopveluwe.png. Voor nu een tijdelijke link voor de demo: -->
+            <img src="https://images.unsplash.com/photo-1590424753858-394a4275ecdf?auto=format&fit=crop&q=80&w=800" id="main-wolf-img" alt="Wolf op de Veluwe" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        </div>
+        <div style="background: #e8f6f3; padding: 20px; border-radius: 8px; border: 1px solid #1abc9c; text-align: center;">
+            <h3>Welkom Onderzoeker</h3>
+            <input type="text" id="firstname" placeholder="Voer je naam in..." style="width: 60%;"><br>
+            <button onclick="login()" class="btn-primary">Start de Webkwestie</button>
         </div>
     </section>
 
@@ -58,105 +64,123 @@
     <section id="screen-inleiding" class="hidden">
         <div class="newspaper">
             <h2 id="typed-header"></h2>
+            <div class="author">Door: Eip Janssen en Jannes Bijlsma</div>
             <p id="typed-text" style="white-space: pre-wrap;"></p>
         </div>
-        <div id="video-box" class="hidden" style="margin-top:20px;">
-             <iframe width="100%" height="400" src="https://www.youtube.com/embed/p0KTqVoSEJ0" frameborder="0"></iframe>
+        <div style="margin-top: 20px;" class="hidden" id="video-box">
+             <iframe width="100%" height="400" src="https://www.youtube.com/embed/p0KTqVoSEJ0" frameborder="0" allowfullscreen></iframe>
         </div>
     </section>
 
-    <!-- VOORKENNIS (LIVEFEED 1) -->
+    <!-- VOORKENNIS (LIVE FEED 1) -->
     <section id="screen-voorkennis" class="hidden">
         <h2>Wat weet jij al over de wolf?</h2>
-        <div style="margin-bottom: 20px;">
-            <input type="text" id="kennis-input" placeholder="Typ hier je weetje..." style="width: 70%;">
-            <button onclick="addKnowledgeLocal()" class="btn-primary">Plaats op de wall</button>
+        <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+            <h4>Plaats een bericht op de wall:</h4>
+            <input type="text" id="kennis-input" placeholder="Typ hier jouw weetje..." style="width: 70%;">
+            <button onclick="addKnowledgeLocal()" class="btn-primary">Plaatsen</button>
         </div>
-        <div id="all-knowledge-wall" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px;"></div>
+        <div id="all-knowledge-wall" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+            <!-- Wordt gevuld via JS -->
+        </div>
     </section>
 
     <!-- OPDRACHT -->
     <section id="screen-opdracht" class="hidden">
         <h2>De Opdracht</h2>
-        <p>Maak een digitale mindmap waarin je de argumenten van voor- en tegenstanders van de wolf op de Veluwe vergelijkt.</p>
+        <div style="background: #e8f6f3; padding: 20px; border-left: 5px solid #1abc9c;">
+            <p><strong>Deskundigen,</strong> jullie gaan onderzoeken of de wolf welkom is op de Veluwe. Maak een mindmap waarin je laat zien:</p>
+            <ul>
+                <li>Waarom <strong>voorstanders</strong> de wolf op de Veluwe willen.</li>
+                <li>Waarom de <strong>tegenstanders</strong> zich zorgen maken.</li>
+                <li>Welke <strong>oplossingen</strong> er zijn om mens en wolf samen te laten leven.</li>
+            </ul>
+        </div>
     </section>
 
     <!-- VERWERKING -->
     <section id="screen-verwerking" class="hidden">
-        <h2>Verwerking: Maak je Mindmap</h2>
-        <div id="mindmap-area" style="border: 2px dashed #ccc; padding: 20px; background: #fafafa;">
-            <div class="node" style="background: #2c3e50; color: white;">De Wolf op de Veluwe</div>
-            <div id="nodes-voor"><strong>✅ Voor:</strong> <button onclick="addNode('voor')">+</button></div>
-            <div id="nodes-tegen"><strong>❌ Tegen:</strong> <button onclick="addNode('tegen')">+</button></div>
-            <br>
-            <button onclick="saveMindmap()" class="btn-primary">Mindmap indienen</button>
+        <h2>Verwerking: De Mindmap</h2>
+        <div id="mindmap-area">
+            <div class="node" style="background: #2c3e50; color: white;"><strong>Centraal: Wolven op de Veluwe</strong></div>
+            <div id="nodes-voor" style="margin-top:15px;"><strong>✅ Voorstanders:</strong> <button onclick="addNode('voor')">+</button></div>
+            <div id="nodes-tegen" style="margin-top:15px;"><strong>❌ Tegenstanders:</strong> <button onclick="addNode('tegen')">+</button></div>
+            <button onclick="saveMindmap()" style="margin-top: 30px;" class="btn-primary">Mindmap Indienen</button>
         </div>
     </section>
 
-    <!-- BEOORDELING (RUBRIC + LIVEFEED 2) -->
+    <!-- BEOORDELING (RUBRIC + LIVE FEED 2) -->
     <section id="screen-beoordeling" class="hidden">
         <h2>Beoordeling & Feedback</h2>
         
-        <h3>1. De Rubric</h3>
+        <h3>Succescriteria (Rubric)</h3>
         <table>
             <thead>
                 <tr>
-                    <th>Criterium</th>
-                    <th>🧐 Onvoldoende</th>
-                    <th>🙂 Voldoende</th>
-                    <th>🌟 Goed</th>
+                    <th>Onderdeel</th>
+                    <th>🧐 Bijna daar</th>
+                    <th>🙂 Goed op weg</th>
+                    <th>🌟 Expert</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>Inhoud</strong></td>
-                    <td>Weinig argumenten gebruikt.</td>
+                    <td><strong>Argumenten</strong></td>
+                    <td>Slechts 1 kant belicht.</td>
                     <td>Zowel voor- als tegenstanders genoemd.</td>
-                    <td>Uitgebreide argumentatie met diepgang.</td>
-                </tr>
-                <tr>
-                    <td><strong>Mindmap</strong></td>
-                    <td>Onoverzichtelijk.</td>
-                    <td>Duidelijk verschil tussen voor/tegen.</td>
-                    <td>Zeer logisch en visueel sterk opgebouwd.</td>
+                    <td>Meerdere sterke argumenten per kant.</td>
                 </tr>
                 <tr>
                     <td><strong>Samenwerking</strong></td>
-                    <td>Niet iedereen deed mee.</td>
-                    <td>Goed overlegd in de groep.</td>
-                    <td>Uitstekende taakverdeling en feedback.</td>
+                    <td>Weinig overleg.</td>
+                    <td>Taken goed verdeeld.</td>
+                    <td>Elkaar geholpen en feedback gegeven.</td>
+                </tr>
+                <tr>
+                    <td><strong>Presentatie</strong></td>
+                    <td>Mindmap is lastig te lezen.</td>
+                    <td>Duidelijk en overzichtelijk.</td>
+                    <td>Creatief en zeer helder opgebouwd.</td>
                 </tr>
             </tbody>
         </table>
 
         <hr style="margin: 40px 0;">
 
-        <h3>2. Livefeed: Kijk bij elkaar</h3>
-        <p>Klik op een mindmap van een klasgenoot om een compliment (Top) achter te laten.</p>
-        <div id="mindmap-galerij"></div>
+        <h3>Kijk bij je klasgenoten (Livefeed)</h3>
+        <p>Bekijk de resultaten en geef een 'Top' aan een ander groepje.</p>
+        <div id="mindmap-galerij">
+            <!-- Wordt gevuld via JS -->
+        </div>
     </section>
 
     <!-- AFSLUITING -->
     <section id="screen-afsluiting" class="hidden">
         <h2>Afsluiting</h2>
+        <p>Goed gedaan! Je hebt het onderzoek voltooid. Hieronder zie je de ontvangen feedback:</p>
         <div id="tops-list"></div>
     </section>
 </div>
 
 <script>
+    // --- DATA ---
     let currentUser = "";
-    let currentMindmap = { voor: [], tegen: [] };
-    let knowledgeData = [
-        {naam: "Sanne", tekst: "Wolven leven in roedels.", likes: 2},
-        {naam: "Meester", tekst: "Er zijn nu meerdere roedels op de Veluwe.", likes: 5}
-    ];
-    let sharedMindmaps = [
-        {maker: "Groepje A", voor: ["Natuurlijk evenwicht"], tegen: ["Schapen worden gebeten"]}
+    let myMindmap = { voor: [], tegen: [] };
+    
+    let demoKnowledge = [
+        {naam: "Sanne", tekst: "Wolven eten reeën en wilde zwijnen.", likes: 5},
+        {naam: "Lucas", tekst: "De wolf is een toppredator.", likes: 3}
     ];
 
-    const kop = "WOLVEN OP DE VELUWE";
-    const tekst = "EDE - De wolf is officieel terug. Robertjan van der Heijden stond oog-in-oog met het dier langs de Apeldoornseweg. Natuurmonumenten spreekt van 'historisch nieuws' voor de Nederlandse biodiversiteit.";
+    let demoGallery = [
+        {maker: "Groepje 3", voor: ["Natuurlijk evenwicht"], tegen: ["Gevaar voor schapen"]},
+        {maker: "Groepje 5", voor: ["Biodiversiteit"], tegen: ["Angst bij wandelaars"]}
+    ];
 
+    const krantenKop = "WOLVEN OP DE VELUWE";
+    const krantenTekst = "EDE - Edenaar Robertjan van der Heijden maakt woensdagochtend zijn dagelijkse fietstocht naar zijn werk, als hij in het bos langs de Apeldoornseweg plots oog-in-oog staat met een wolf. \n\nNatuurmonumenten noemt de komst van het roofdier historisch nieuws. ,,Het laat zien dat de Nederlandse natuur diverser en spannender wordt.\", aldus een boswachter.";
+
+    // --- LOGICA ---
     window.showScreen = function(id) {
         document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
         document.getElementById('screen-' + id).classList.remove('hidden');
@@ -171,7 +195,7 @@
         if(currentUser) {
             document.getElementById('main-nav').classList.remove('hidden');
             showScreen('inleiding');
-        }
+        } else { alert("Voer eerst je naam in."); }
     };
 
     function startTypewriter() {
@@ -179,51 +203,60 @@
         const h = document.getElementById('typed-header'), b = document.getElementById('typed-text');
         h.innerHTML = ""; b.innerHTML = "";
         function type() {
-            if (i < kop.length) { h.innerHTML += kop.charAt(i++); setTimeout(type, 50); }
-            else if (j < tekst.length) { b.innerHTML += tekst.charAt(j++); setTimeout(type, 20); }
+            if (i < krantenKop.length) { h.innerHTML += krantenKop.charAt(i++); setTimeout(type, 50); }
+            else if (j < krantenTekst.length) { b.innerHTML += krantenTekst.charAt(j++); setTimeout(type, 20); }
             else { document.getElementById('video-box').classList.remove('hidden'); }
         }
         type();
     }
 
     function renderKnowledge() {
-        document.getElementById('all-knowledge-wall').innerHTML = knowledgeData.map(k => `
-            <div class="card"><strong>${k.naam}</strong>: ${k.tekst}<br><small>👍 ${k.likes}</small></div>
+        const wall = document.getElementById('all-knowledge-wall');
+        wall.innerHTML = demoKnowledge.map(k => `
+            <div class="card"><strong>${k.naam}</strong><br>${k.tekst}<br><button style="border:none; cursor:pointer;">👍 ${k.likes}</button></div>
         `).join('');
     }
 
     window.addKnowledgeLocal = function() {
         const val = document.getElementById('kennis-input').value;
-        if(val) { knowledgeData.unshift({naam: currentUser, tekst: val, likes: 0}); renderKnowledge(); }
+        if(val) {
+            demoKnowledge.unshift({naam: currentUser, tekst: val, likes: 0});
+            document.getElementById('kennis-input').value = "";
+            renderKnowledge();
+        }
     };
 
     window.addNode = function(type) {
-        const arg = prompt("Voeg argument toe:");
+        const arg = prompt("Voeg een argument toe:");
         if(arg) {
-            currentMindmap[type].push(arg);
+            myMindmap[type].push(arg);
             const div = document.createElement('div'); div.className='node'; div.innerText=arg;
             document.getElementById('nodes-'+type).appendChild(div);
         }
     };
 
     window.saveMindmap = function() {
-        sharedMindmaps.unshift({maker: currentUser, ...currentMindmap});
-        alert("Ingeleverd!");
+        demoGallery.unshift({maker: currentUser, ...myMindmap});
+        alert("Mindmap succesvol gedeeld met de klas!");
         showScreen('beoordeling');
     };
 
     function renderGallery() {
-        document.getElementById('mindmap-galerij').innerHTML = sharedMindmaps.map(m => `
+        const gal = document.getElementById('mindmap-galerij');
+        gal.innerHTML = demoGallery.map(m => `
             <div class="card">
                 <h4>Mindmap van ${m.maker}</h4>
-                <p>✅ ${m.voor.join(', ')} | ❌ ${m.tegen.join(', ')}</p>
-                <button onclick="alert('Top verstuurd!')" style="font-size:0.8rem;">Geef een Top 🌟</button>
+                <p>✅ <strong>Voor:</strong> ${m.voor.join(', ') || '-'}</p>
+                <p>❌ <strong>Tegen:</strong> ${m.tegen.join(', ') || '-'}</p>
+                <button onclick="alert('Compliment verstuurd!')" class="btn-primary" style="padding:5px 10px; font-size:0.8rem;">Geef een Top 🌟</button>
             </div>
         `).join('');
     }
 
     function renderTops() {
-        document.getElementById('tops-list').innerHTML = `<div class="card">🌟 <strong>Meester:</strong> "Mooi gewerkt aan je mindmap, ${currentUser}!"</div>`;
+        document.getElementById('tops-list').innerHTML = `
+            <div class="card" style="border-top-color:#f1c40f">🌟 <strong>Meester:</strong> Fantastisch gewerkt aan de mindmap, ${currentUser}!</div>
+        `;
     }
 </script>
 </body>
