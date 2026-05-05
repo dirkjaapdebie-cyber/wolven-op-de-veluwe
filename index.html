@@ -44,18 +44,23 @@
 </nav>
 
 <div class="container">
-    <section id="screen-login">
-        <h1>Welkom bij de Webkwestie</h1>
-        <p>Voer je gegevens in om te starten:</p>
-        <input type="text" id="firstname" placeholder="Je voornaam...">
-        <select id="groep">
-            <option value="groep 7">Groep 7</option>
-            <option value="groep 8">Groep 8</option>
-        </select>
-        <button onclick="login()">Start Webkwestie</button>
-        <hr>
-        <button class="reset-btn" onclick="resetDatabase()">Reset Database (Verwijder alle data)</button>
-    </section>
+   <section id="screen-login">
+    <h1>Welkom bij de Webkwestie</h1>
+    
+    <div style="text-align: center; margin-bottom: 20px;">
+        <img src="wolfopveluwe.png" alt="Wolf op de Veluwe" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+    </div>
+
+    <p>Voer je gegevens in om te starten:</p>
+    <input type="text" id="firstname" placeholder="Je voornaam...">
+    <select id="groep">
+        <option value="groep 7">Groep 7</option>
+        <option value="groep 8">Groep 8</option>
+    </select>
+    <button onclick="login()">Start Webkwestie</button>
+    <hr>
+    <button class="reset-btn" onclick="resetDatabase()">Reset Database (Verwijder alle data)</button>
+</section>
 <section id="screen-infobronnen" class="hidden">
         <h2>Informatiebronnen</h2>
         <p>Gebruik de onderstaande bronnen om je onderzoek te doen. Let goed op welke links bij jouw rol horen!</p>
