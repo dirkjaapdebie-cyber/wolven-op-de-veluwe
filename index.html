@@ -290,23 +290,30 @@ window.saveVoorkennis = function() {
     const verhalen = document.getElementById('kennis-verhalen').value;
     const ervaring = document.getElementById('kennis-ervaring').value;
 
-    if(!natuur || !verhalen || !ervaring) return alert("Vul in alle vakjes iets in!");
+    // We checken nu of er MINSTENS één vakje is ingevuld (met de || "of" operator)
+    if(natuur.trim() === "" && verhalen.trim() === "" && ervaring.trim() === "") {
+        return alert("Vertel eerst even iets over de wolf in tenminste één vakje!");
+    }
 
     set(ref(db, 'voorkennis/' + name), {
         naam: name,
-        natuur: natuur,
-        verhalen: verhalen,
-        ervaring: ervaring,
+        natuur: natuur || "Niet ingevuld", // Als het leeg is, komt er dit te staan
+        verhalen: verhalen || "Niet ingevuld",
+        ervaring: ervaring || "Niet ingevuld",
         tijd: new Date().toLocaleTimeString()
     }).then(() => {
-        // Velden leegmaken na verzenden
-        document.getElementById('kennis-natuur').value = "";
-        document.getElementById('kennis-verhalen').value = "";
-        document.getElementById('kennis-ervaring').value = "";
-        alert("Jouw kennis staat op de muur!");
+        // Direct de muur zichtbaar maken
+        const container = document.getElementById('knowledge-container');
+        container.classList.remove('hidden');
+        
+        // Scroll even naar beneden zodat de leerling de muur ziet
+        container.scrollIntoView({ behavior: 'smooth' });
+        
+        alert("Top! Je bijdrage staat op de muur. Kijk nu maar eens wat de rest vindt.");
+    }).catch((error) => {
+        alert("Oeps: " + error.message);
     });
 };
-
 // 2. LIVE alle voorkennis ophalen en tonen
 onValue(ref(db, 'voorkennis/'), (snapshot) => {
     const wall = document.getElementById('all-knowledge-wall');
