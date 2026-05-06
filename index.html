@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webkwestie Wolf | Interactieve Educatieve Demo</title>
+    <title>Webkwestie: De Wolf op de Veluwe | Interactieve Demo</title>
     <style>
         :root {
             --primary: #1abc9c;
             --dark: #2c3e50;
             --light: #f4f7f6;
             --accent: #e74c3c;
+            --gold: #f1c40f;
         }
 
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; margin: 0; background: var(--light); }
@@ -18,42 +19,43 @@
         #progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 6px; background: #ddd; z-index: 2000; }
         #progress-bar { height: 100%; width: 0%; background: var(--primary); transition: width 0.5s ease; }
 
+        /* Navigatie */
         nav { background: var(--dark); padding: 1rem; position: sticky; top: 6px; display: flex; justify-content: center; gap: 10px; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         nav button { background: #34495e; border: none; color: white; padding: 10px 18px; cursor: pointer; border-radius: 20px; transition: 0.3s; font-size: 0.9rem; font-weight: bold; }
         nav button.active { background: var(--primary); box-shadow: 0 0 15px rgba(26, 188, 156, 0.4); }
 
-        .container { max-width: 1200px; margin: 40px auto; background: white; padding: 50px; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.08); }
+        .container { max-width: 1100px; margin: 40px auto; background: white; padding: 50px; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.08); min-height: 70vh; }
         .hidden { display: none; }
         
         /* Krant Styling */
-        .newspaper-grid { display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 40px; align-items: start; }
-        .newspaper-text { text-align: justify; border-top: 3px solid #000; padding-top: 20px; }
-        .newspaper-text h2 { font-family: 'Times New Roman', serif; font-size: 2.8rem; margin-bottom: 10px; line-height: 1.1; text-align: center; }
+        .newspaper-text { text-align: justify; border-top: 3px solid #000; padding-top: 20px; margin-bottom: 30px; }
+        .newspaper-text h2 { font-family: 'Times New Roman', serif; font-size: 2.8rem; margin-bottom: 10px; text-align: center; }
         .author-line { font-style: italic; border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 20px; font-weight: bold; }
 
-        /* Kaarten & Interactie */
-        .card { background: white; border-radius: 12px; border: 1px solid #eee; padding: 25px; transition: all 0.3s ease; position: relative; border-top: 5px solid var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0,0,0,0.1); }
+        /* Interactieve Elementen */
+        .input-box { background: #e8f6f3; padding: 30px; border-radius: 12px; border: 1px solid var(--primary); margin-bottom: 40px; display: flex; gap: 15px; align-items: flex-end; }
+        .input-group { flex: 1; }
+        .input-group label { display: block; font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; color: var(--dark); }
+        .input-group input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
 
-        #mindmap-area { border: 3px dashed #cbd5e0; padding: 40px; border-radius: 20px; background: #fcfcfc; text-align: center; }
-        .node { background: white; border: 2px solid var(--dark); padding: 12px 20px; margin: 10px; display: inline-block; border-radius: 10px; font-weight: bold; }
-
-        .pulse-btn { 
-            animation: pulse 2s infinite; 
-            background: var(--primary); color: white; border: none; padding: 8px 15px; border-radius: 50%; cursor: pointer; font-weight: bold;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(26, 188, 156, 0.5); }
-            70% { box-shadow: 0 0 0 12px rgba(26, 188, 156, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(26, 188, 156, 0); }
-        }
-
-        .btn-main { background: var(--primary); color: white; border: none; padding: 15px 35px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1.1rem; }
+        .card { background: white; border-radius: 12px; border: 1px solid #eee; padding: 25px; transition: 0.4s; position: relative; border-top: 5px solid var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .new-item { animation: slideIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-top-color: var(--accent); }
         
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9rem; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: scale(0.8) translateY(30px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .btn-main { background: var(--primary); color: white; border: none; padding: 14px 28px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(26,188,156,0.3); }
+
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
+
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
         th, td { border: 1px solid #eee; padding: 12px; text-align: left; }
         th { background: #f8f9fa; }
+
+        .node { display: inline-block; padding: 10px 20px; margin: 10px; border-radius: 8px; background: white; font-weight: bold; transition: 0.3s; }
     </style>
 </head>
 <body>
@@ -61,212 +63,271 @@
 <div id="progress-container"><div id="progress-bar"></div></div>
 
 <nav id="main-nav" class="hidden">
-    <button id="nav-inleiding" onclick="showScreen('inleiding')">Inleiding</button>
-    <button id="nav-voorkennis" onclick="showScreen('voorkennis')">Voorkennis</button>
-    <button id="nav-opdracht" onclick="showScreen('opdracht')">Opdracht</button>
-    <button id="nav-verwerking" onclick="showScreen('verwerking')">Verwerking</button>
-    <button id="nav-beoordeling" onclick="showScreen('beoordeling')">Beoordeling</button>
-    <button id="nav-afsluiting" onclick="showScreen('afsluiting')">Afsluiting</button>
+    <button id="nav-inleiding" onclick="showScreen('inleiding')">1. Inleiding</button>
+    <button id="nav-voorkennis" onclick="showScreen('voorkennis')">2. Voorkennis</button>
+    <button id="nav-opdracht" onclick="showScreen('opdracht')">3. Opdracht</button>
+    <button id="nav-verwerking" onclick="showScreen('verwerking')">4. Verwerking</button>
+    <button id="nav-beoordeling" onclick="showScreen('beoordeling')">5. Beoordeling</button>
+    <button id="nav-afsluiting" onclick="showScreen('afsluiting')">6. Afsluiting</button>
 </nav>
 
 <div class="container">
     <section id="screen-login" style="text-align: center;">
-        <h1 style="font-size: 3rem; color: var(--dark); margin-bottom: 10px;">Webkwestie: Wolven op de Veluwe</h1>
-        <p style="font-size: 1.3rem; color: #666; margin-bottom: 30px;">Onderzoek de terugkeer van de wolf door de ogen van deskundigen.</p>
-        <div style="margin-bottom: 40px;">
-            <img src="wolfopveluwe.png" alt="Wolf" style="width: 100%; max-width: 800px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.15);">
-        </div>
-        <div style="background: white; padding: 40px; border-radius: 15px; border: 2px solid var(--primary); display: inline-block;">
-            <h3>Klaar voor het onderzoek?</h3>
-            <input type="text" id="firstname" placeholder="Voer je naam in..." style="padding: 15px; width: 250px; border-radius: 30px; border: 1px solid #ddd; margin-right: 10px; outline: none;">
-            <button onclick="login()" class="btn-main">Start Webkwestie</button>
+        <h1 style="font-size: 2.8rem; color: var(--dark);">Welkom bij de Webkwestie</h1>
+        <p style="font-size: 1.2rem; color: #666;">Onderzoek de terugkeer van de Wolf op de Veluwe.</p>
+        <img src="wolfopveluwe.png" alt="Wolf" style="width: 100%; max-width: 700px; border-radius: 15px; margin: 25px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+        <div>
+            <input type="text" id="firstname" placeholder="Wat is je voornaam?" style="padding: 15px; border-radius: 30px; border: 1px solid #ddd; width: 280px; font-size: 1rem; outline: none;">
+            <button onclick="login()" class="btn-main">Start Onderzoek</button>
         </div>
     </section>
 
     <section id="screen-inleiding" class="hidden">
-        <div class="newspaper-grid">
-            <div class="newspaper-text">
-                <h2 id="typed-header"></h2>
-                <div class="author-line">Door: Eip Janssen en Jannes Bijlsma</div>
-                <p id="typed-text" style="font-size: 1.1rem; line-height: 1.8; color: #333; font-family: 'Georgia', serif;"></p>
-            </div>
-            <div id="video-box" class="hidden" style="position: sticky; top: 100px;">
-                <div style="background: var(--dark); padding: 15px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-                    <iframe width="100%" height="300" src="https://www.youtube.com/embed/p0KTqVoSEJ0" frameborder="0" allowfullscreen style="border-radius: 8px;"></iframe>
-                    <p style="color: white; margin-top: 15px; font-size: 0.9rem;">📺 <strong>Videofragment:</strong> De eerste beelden van de wolf in Ede.</p>
-                </div>
-            </div>
+        <div class="newspaper-text">
+            <h2 id="typed-header"></h2>
+            <div class="author-line">Door: Eip Janssen en Jannes Bijlsma</div>
+            <p id="typed-text" style="white-space: pre-wrap; font-family: 'Georgia', serif; font-size: 1.15rem; line-height: 1.9;"></p>
+        </div>
+        <div id="video-box" class="hidden" style="margin-top: 30px; text-align: center;">
+            <iframe width="100%" height="500" src="https://www.youtube.com/embed/p0KTqVoSEJ0" frameborder="0" allowfullscreen style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);"></iframe>
+            <p style="font-style: italic; color: #666; margin-top: 10px;">Bekijk de video om een goed beeld te krijgen van de situatie in Ede.</p>
         </div>
     </section>
 
     <section id="screen-voorkennis" class="hidden">
-        <h2>Wat weet jij al over de wolf?</h2>
-        <p>Voordat we bronnen gaan raadplegen, verzamelen we de kennis van de hele groep.</p>
-        <div id="all-knowledge-wall" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 25px;"></div>
+        <h2>Wat weet de klas al?</h2>
+        <p>Voordat we dieper in de bronnen duiken, delen we onze huidige kennis. Wat weet jij al?</p>
+        
+        <div class="input-box">
+            <div class="input-group">
+                <label>Wat weet je over de wolf in de natuur?</label>
+                <input type="text" id="input-natuur" placeholder="Bijv. Ze leven in een roedel en jagen samen...">
+            </div>
+            <div class="input-group">
+                <label>Welk verhaal of sprookje ken je over de wolf?</label>
+                <input type="text" id="input-verhaal" placeholder="Bijv. De wolf en de drie biggetjes...">
+            </div>
+            <button onclick="addLiveKnowledge()" class="btn-main">Deel met de klas 🚀</button>
+        </div>
+
+        <div id="all-knowledge-wall" class="grid-layout">
+            <div class="card">
+                <div style="font-weight:bold; color:var(--primary); font-size:1.1rem; margin-bottom:10px;">👤 Sanne</div>
+                <p><strong>Natuur:</strong> Wolven zijn erg schuw en komen liever geen mensen tegen.</p>
+                <p><strong>Verhaal:</strong> Roodkapje en de boze wolf.</p>
+            </div>
+            <div class="card">
+                <div style="font-weight:bold; color:var(--primary); font-size:1.1rem; margin-bottom:10px;">👤 Lucas</div>
+                <p><strong>Natuur:</strong> Ze kunnen enorme afstanden afleggen op één dag.</p>
+                <p><strong>Verhaal:</strong> De wolf en de zeven geitjes.</p>
+            </div>
+        </div>
     </section>
 
     <section id="screen-opdracht" class="hidden">
         <h2>De Opdracht</h2>
-        <div style="background: #e8f6f3; padding: 40px; border-left: 10px solid var(--primary); border-radius: 0 15px 15px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
-            <p style="font-size: 1.2rem;"><strong>Beste Deskundigen,</strong></p>
-            <p>Jullie gaan onderzoeken hoe de wolf weer een plek kan krijgen op de Veluwe. Het is jullie taak om een mindmap te maken waarin de verschillende belangen duidelijk worden. Gebruik de infobronnen om argumenten te verzamelen voor de volgende punten:</p>
+        <div style="background: #e8f6f3; padding: 40px; border-left: 10px solid var(--primary); border-radius: 0 15px 15px 0;">
+            <p style="font-size: 1.25rem; font-weight: bold; color: var(--dark);">Beste deskundigen,</p>
+            <p>Jullie gaan onderzoeken hoe de wolf weer een plek kan krijgen op de Veluwe. Het is jullie taak om een mindmap te maken waarin de verschillende belangen duidelijk naar voren komen.</p>
+            <p>Gebruik de infobronnen en video's om argumenten te verzamelen voor de volgende drie punten:</p>
             <ul style="font-size: 1.1rem; line-height: 2;">
-                <li><strong>De Voorstanders:</strong> Waarom is de komst van de wolf goed voor de natuur?</li>
-                <li><strong>De Tegenstanders:</strong> Welke zorgen hebben boeren en bewoners?</li>
-                <li><strong>Infrastructuur:</strong> Wat moet er fysiek veranderen op de Veluwe (bijv. roosters, hekken, tunnels)?</li>
+                <li><strong>De Voorstanders:</strong> Waarom zijn veel natuurliefhebbers blij met de komst van de wolf? (Denk aan biodiversiteit en natuurlijk evenwicht).</li>
+                <li><strong>De Tegenstanders:</strong> Waarom maken boeren en sommige bewoners zich zorgen? (Denk aan veiligheid van vee en angst).</li>
+                <li><strong>Infrastructuur:</strong> Wat moet er fysiek veranderen op de Veluwe om mens en wolf veilig samen te laten leven? (Denk aan rasters, ecoducten en tunnels).</li>
             </ul>
         </div>
     </section>
 
     <section id="screen-verwerking" class="hidden">
-        <h2>Bouw je Argumentatie</h2>
-        <p>Gebruik de knoppen om argumenten uit je onderzoek toe te voegen aan de klassikale mindmap.</p>
-        <div id="mindmap-area">
-            <div class="node" style="background: var(--dark); color: white; font-size: 1.3rem; padding: 15px 30px;">De Wolf op de Veluwe</div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px;">
-                <div id="nodes-voor" style="background: #e8f6f3; padding: 25px; border-radius: 15px;">
-                    <h4 style="color: #16a085;">✅ VOORSTANDERS <button onclick="addNode('voor')" class="pulse-btn">+</button></h4>
-                </div>
-                <div id="nodes-tegen" style="background: #fdf2f2; padding: 25px; border-radius: 15px;">
-                    <h4 style="color: #c0392b;">❌ TEGENSTANDERS <button onclick="addNode('tegen')" class="pulse-btn" style="background: var(--accent);">+</button></h4>
-                </div>
+        <h2>Verwerking: Bouw de Mindmap</h2>
+        <p>Klik op de knoppen om jullie verzamelde argumenten toe te voegen aan de centrale mindmap.</p>
+        
+        <div style="text-align: center; border: 3px dashed #cbd5e0; padding: 50px; border-radius: 20px; background: #fafafa;">
+            <div style="background: var(--dark); color: white; display: inline-block; padding: 15px 40px; border-radius: 12px; font-weight: bold; font-size: 1.4rem; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                De Wolf op de Veluwe
             </div>
-            <button onclick="saveMindmap()" class="btn-main" style="margin-top: 40px;">Sla Mindmap op & Deel</button>
+            
+            <div id="nodes-container" style="min-height: 100px; margin-bottom: 30px;">
+                </div>
+
+            <div style="display: flex; justify-content: center; gap: 20px;">
+                <button onclick="addNode('voor')" class="btn-main" style="background:#16a085;">+ Voorstander-argument</button>
+                <button onclick="addNode('tegen')" class="btn-main" style="background:#c0392b;">+ Tegenstander-zorg</button>
+            </div>
+            
+            <button onclick="publishMindmap()" class="btn-main" style="margin-top: 60px; width: 100%; background: var(--dark); letter-spacing: 1px;">OPSLAAN EN DELEN MET DE KLAS</button>
         </div>
     </section>
 
     <section id="screen-beoordeling" class="hidden">
-        <h2>Beoordeling & Positieve Feedback</h2>
-        <p>Een goede deskundige kijkt ook kritisch en positief naar het werk van anderen. Beoordeel een ander groepje op basis van de onderstaande criteria en geef een 'Top'.</p>
+        <h2>Beoordeling & Feedback</h2>
+        <p>Een goede deskundige kijkt ook kritisch naar het werk van anderen. We gebruiken een positieve benadering: geef elk groepje een 'Top'.</p>
         
-        <div style="background: #fff; padding: 20px; border-radius: 10px; border: 1px solid #ddd; margin-bottom: 30px; font-size: 0.9rem;">
-            <strong>Waar let je op?</strong>
-            <ul style="display: flex; gap: 20px; list-style: none; padding: 0; margin-top: 10px; color: #666;">
-                <li>✔️ Gebruik van de krantentekst</li>
-                <li>✔️ Balans voor/tegen</li>
-                <li>✔️ Creativiteit</li>
-                <li>✔️ Duidelijke taal</li>
-            </ul>
-        </div>
+        <table>
+            <thead>
+                <tr><th>Criterium</th><th>Waar let je op? (Pedagogische insteek)</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Inhoud</strong></td><td>Is de tekst uit de krant en de video's goed gebruikt voor de argumenten?</td></tr>
+                <tr><td><strong>Balans</strong></td><td>Zijn zowel de voorstanders als de tegenstanders op een eerlijke manier benoemd?</td></tr>
+                <tr><td><strong>Samenwerking</strong></td><td>Ziet het resultaat eruit alsof er goed is overlegd in het groepje?</td></tr>
+            </tbody>
+        </table>
 
-        <div id="mindmap-galerij" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;"></div>
+        <h3 style="margin-top: 40px;">De Mindmap Galerij</h3>
+        <div id="mindmap-galerij" class="grid-layout">
+            </div>
     </section>
 
     <section id="screen-afsluiting" class="hidden" style="text-align: center;">
-        <div style="font-size: 4rem;">🐺</div>
-        <h2>Onderzoek Afgerond!</h2>
-        <p>Je hebt succesvol bijgedragen aan het debat over de wolf. Hieronder zie je de waardering die je van je klasgenoten hebt gekregen:</p>
-        <div id="tops-list" style="max-width: 700px; margin: 30px auto; text-align: left;"></div>
-        <button onclick="location.reload()" class="btn-main" style="background: var(--dark);">Opnieuw beginnen</button>
+        <div style="font-size: 5rem;">🌟</div>
+        <h2>Uitstekend gedaan!</h2>
+        <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto;">Je hebt het onderzoek naar de wolf op de Veluwe succesvol afgerond. Je bent nu een ware expert op het gebied van ecologie en maatschappelijke belangen.</p>
+        
+        <div id="tops-received" style="margin-top: 40px;">
+            <h3>Ontvangen 'Tops' van klasgenoten:</h3>
+            <div id="tops-list" style="max-width: 600px; margin: 0 auto; text-align: left;">
+                </div>
+        </div>
+        
+        <button onclick="location.reload()" class="btn-main" style="margin-top: 50px; background: var(--dark);">Opnieuw beginnen</button>
     </section>
 </div>
 
 <script>
-    // --- HERSTELDE OORSPRONKELIJKE TEKSTEN ---
     const krantenKop = "WOLVEN OP DE VELUWE";
-    const krantenTekst = "EDE - Edenaar Robertjan van der Heijden maakt woensdagochtend zijn dagelijkse fietstocht naar zijn werk in Barneveld, als hij in het bos langs de Apeldoornseweg (N304) tussen Ede en de rotonde bij de Driesprong plots oog-in-oog staat met een wolf. ,,Dat was best even schrikken\", vertelt Van der Heijden.\n\nHet is rond 8.00 uur als de inwoner van Ede, op ongeveer een kilometer buiten zijn woonplaats, in de schemerende verte een dier ziet dat op een hond lijkt. Dat bevreemdt hem. ,,Het is absoluut geen plek om je hond uit te laten. Ik zag er ook niemand bij staan of lopen.\" Hoe dichter Van der Heijden bij het dier in de buurt komt, hoe groter hij lijkt te worden. Hij remt af. ,,Ik had niet de intentie om hem op het fietspad voorbij te gaan. Je schrikt er namelijk toch van.\"\n\nNatuurmonumenten noemt de komst van het roofdier goed nieuws. ,,Als de wolf terugkeert, laat dat zien dat er in ons drukke land nog plekken zijn voor een toppredator als de wolf. De wolf maakt de Nederlandse natuur diverser en spannender.\"";
+    const krantenTekst = "EDE - Edenaar Robertjan van der Heijden maakt woensdagochtend zijn dagelijkse fietstocht naar zijn werk in Barneveld, als hij in het bos langs de Apeldoornseweg (N304) tussen Ede en de rotonde bij de Driesprong plots oog-in-oog staat met een wolf. ,,Dat was best even schrikken\", vertelt Van der Heijden.\n\nHet is rond 8.00 uur als de inwoner van Ede, op ongeveer een kilometer buiten zijn woonplaats, in de schemerende verte een dier ziet dat op een hond lijkt. Dat bevreemdt hem. ,,Het is absoluut geen plek om je hond uit te laten. Ik zag er ook niemand bij staan of lopen.\"\n\nHoe dichter Van der Heijden bij het dier in de buurt komt, hoe groter hij lijkt te worden. Hij remt af. ,,Ik had niet de intentie om hem op het fietspad voorbij te gaan. Je schrikt er namelijk toch van.\"\n\nNatuurmonumenten noemt de komst van het roofdier goed nieuws. ,,Als de wolf terugkeert, laat dat zien dat er in ons drukke land nog plekken zijn voor een toppredator als de wolf. De wolf maakt de Nederlandse natuur diverser en spannender.\"";
 
-    const demoData = {
-        knowledge: [
-            {naam: "Sanne", natuur: "Wolven eten voornamelijk reeën, wilde zwijnen en edelherten.", verhalen: "De Grote Boze Wolf uit Roodkapje.", likes: 9},
-            {naam: "Lucas", natuur: "Ze leven in een roedel en hebben een alfapaar dat de leiding heeft.", verhalen: "De wolf en de zeven geitjes.", likes: 6}
-        ],
-        mindmaps: [
-            {maker: "Groepje 4 (Emma & Ryan)", voor: ["Natuurlijk evenwicht", "Biodiversiteit"], tegen: ["Gevaar voor schapen", "Angst onder toeristen"]},
-            {maker: "Groepje 7 (Milan & Sophie)", voor: ["Toerisme", "Minder zieke dieren"], tegen: ["Niet veilig voor kinderen"]}
-        ]
-    };
-
-    // --- LOGICA ---
+    let userName = "";
+    let userMindmapNodes = []; 
     const screens = ['login', 'inleiding', 'voorkennis', 'opdracht', 'verwerking', 'beoordeling', 'afsluiting'];
-    
-    window.showScreen = function(id) {
+
+    // --- NAVIGATIE ---
+    function showScreen(id) {
         screens.forEach(s => document.getElementById('screen-' + s).classList.add('hidden'));
         document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-        
         document.getElementById('screen-' + id).classList.remove('hidden');
+        
         if(id !== 'login') {
             document.getElementById('nav-' + id).classList.add('active');
-            const progress = ((screens.indexOf(id)) / (screens.length - 1)) * 100;
+            const progress = (screens.indexOf(id) / (screens.length - 1)) * 100;
             document.getElementById('progress-bar').style.width = progress + '%';
         }
-
+        
         if(id === 'inleiding') startTypewriter();
-        if(id === 'voorkennis') fillKnowledge();
-        if(id === 'beoordeling') fillMindmaps();
-        if(id === 'afsluiting') fillTops();
+        if(id === 'beoordeling') renderGalerij();
+        if(id === 'afsluiting') renderTops();
         window.scrollTo(0,0);
-    };
-
-    function login() {
-        if(document.getElementById('firstname').value) {
-            document.getElementById('main-nav').classList.remove('hidden');
-            showScreen('inleiding');
-        } else { alert("Voer je naam in om het onderzoek te starten."); }
     }
 
+    function login() {
+        const input = document.getElementById('firstname').value;
+        if(input) {
+            userName = input;
+            document.getElementById('main-nav').classList.remove('hidden');
+            showScreen('inleiding');
+        } else {
+            alert("Voer eerst je naam in om deel te nemen aan de klas.");
+        }
+    }
+
+    // --- TYPED EFFECT ---
     function startTypewriter() {
         let i = 0; let j = 0;
         const h = document.getElementById('typed-header');
         const b = document.getElementById('typed-text');
-        const v = document.getElementById('video-box');
-        h.innerHTML = ""; b.innerHTML = ""; v.classList.add('hidden');
-
+        h.innerHTML = ""; b.innerHTML = "";
         function type() {
             if (i < krantenKop.length) { h.innerHTML += krantenKop.charAt(i); i++; setTimeout(type, 80); }
             else if (j < krantenTekst.length) { b.innerHTML += krantenTekst.charAt(j); j++; setTimeout(type, 15); }
-            else { v.classList.remove('hidden'); }
+            else { document.getElementById('video-box').classList.remove('hidden'); }
         }
         type();
     }
 
-    function fillKnowledge() {
-        document.getElementById('all-knowledge-wall').innerHTML = demoData.knowledge.map(k => `
-            <div class="card">
-                <div style="font-weight:bold; color:var(--primary); font-size:1.2rem; margin-bottom:10px;">👤 ${k.naam}</div>
-                <p><strong>Natuur:</strong> ${k.natuur}</p>
-                <p><strong>Verhalen:</strong> ${k.verhalen}</p>
-                <button class="pulse-btn" style="padding:5px 12px; border-radius:8px; font-size:0.8rem;">👍 ${k.likes} stemmen</button>
-            </div>
-        `).join('');
+    // --- LIVE FEED VOORKENNIS ---
+    function addLiveKnowledge() {
+        const n = document.getElementById('input-natuur').value;
+        const v = document.getElementById('input-verhaal').value;
+        if(!n || !v) return alert("Vul beide velden in om je kennis te delen.");
+        
+        const wall = document.getElementById('all-knowledge-wall');
+        const card = document.createElement('div');
+        card.className = "card new-item";
+        card.innerHTML = `<div style="font-weight:bold; color:var(--accent);">👤 ${userName} (Jij)</div>
+                          <p><strong>Natuur:</strong> ${n}</p><p><strong>Verhaal:</strong> ${v}</p>`;
+        wall.prepend(card);
+        document.getElementById('input-natuur').value = "";
+        document.getElementById('input-verhaal').value = "";
     }
 
+    // --- MINDMAP ---
     function addNode(type) {
-        const t = prompt("Voeg argument toe:");
-        if(t) {
-            const d = document.createElement('div'); d.className='node'; d.innerText=t;
-            document.getElementById('nodes-'+type).appendChild(d);
-        }
+        const val = prompt(type === 'voor' ? "Welk positief argument heb je gevonden?" : "Welke zorg of tegenargument heb je gevonden?");
+        if(!val) return;
+        userMindmapNodes.push({type: type, text: val});
+        const node = document.createElement('div');
+        node.className = "node";
+        node.style.border = `2px solid ${type==='voor'?'#16a085':'#c0392b'}`;
+        node.innerText = (type==='voor' ? '✅ ' : '❌ ') + val;
+        document.getElementById('nodes-container').appendChild(node);
     }
 
-    function saveMindmap() {
-        alert("Je onderzoek is opgeslagen in de klas-database!");
+    function publishMindmap() {
+        if(userMindmapNodes.length < 1) return alert("Voeg eerst minimaal één argument toe aan je mindmap.");
+        alert("Je mindmap is succesvol opgeslagen en gedeeld met de klas!");
         showScreen('beoordeling');
     }
 
-    function fillMindmaps() {
-        document.getElementById('mindmap-galerij').innerHTML = demoData.mindmaps.map(m => `
-            <div class="card">
-                <h4>Mindmap van ${m.maker}</h4>
-                <table>
-                    <tr><td><strong>✅ Voor:</strong></td><td>${m.voor.join(', ')}</td></tr>
-                    <tr><td><strong>❌ Tegen:</strong></td><td>${m.tegen.join(', ')}</td></tr>
-                </table>
-                <div style="margin-top:20px; background:#f9f9f9; padding:15px; border-radius:10px;">
-                    <label style="font-size:0.8rem; font-weight:bold;">Compliment (Top):</label>
-                    <div style="display:flex; gap:10px; margin-top:5px;">
-                        <input type="text" placeholder="Wat vind je goed?" style="flex:1; border-radius:5px; border:1px solid #ddd; padding:8px;">
-                        <button onclick="this.innerText='Verstuurd!'" style="background:var(--primary); color:white; border:none; border-radius:5px; padding:8px 15px; cursor:pointer;">🌟</button>
+    // --- GALERIJ & BEOORDELING ---
+    function renderGalerij() {
+        const galerij = document.getElementById('mindmap-galerij');
+        galerij.innerHTML = ""; 
+
+        // 1. Jouw Mindmap
+        if(userMindmapNodes.length > 0) {
+            const voor = userMindmapNodes.filter(n => n.type === 'voor').map(n => n.text).join(', ') || "Geen ingevoerd";
+            const tegen = userMindmapNodes.filter(n => n.type === 'tegen').map(n => n.text).join(', ') || "Geen ingevoerd";
+            galerij.innerHTML += `
+                <div class="card new-item" style="border-top-color: var(--accent);">
+                    <div style="background: var(--accent); color:white; padding:3px 10px; border-radius:10px; font-size:0.7rem; float:right;">LIVE</div>
+                    <h4>Mindmap van ${userName}</h4>
+                    <p><strong>✅ Voor:</strong> ${voor}</p>
+                    <p><strong>❌ Tegen:</strong> ${tegen}</p>
+                    <div style="margin-top:15px; border-top:1px solid #eee; padding-top:10px;">
+                        <span style="font-size:0.8rem; color:#888;">Wachten op feedback...</span>
                     </div>
-                </div>
-            </div>
-        `).join('');
+                </div>`;
+        }
+
+        // 2. Klasgenoten
+        const klas = [
+            {n: "Groepje Blauw (Emma & Tim)", v: "Balans in natuur, Toerisme", t: "Veiligheid schapen"},
+            {n: "Groepje Geel (Milan & Sara)", v: "Minder zieke dieren", t: "Angst bij bewoners"}
+        ];
+        klas.forEach(k => {
+            galerij.innerHTML += `
+                <div class="card">
+                    <h4>Mindmap van ${k.n}</h4>
+                    <p><strong>✅ Voor:</strong> ${k.v}</p>
+                    <p><strong>❌ Tegen:</strong> ${k.t}</p>
+                    <div style="margin-top:15px; display:flex; gap:5px;">
+                        <input type="text" placeholder="Geef een Top..." style="flex:1; padding:8px; border-radius:5px; border:1px solid #ddd; font-size:0.8rem;">
+                        <button onclick="this.innerText='Verzonden!'" style="background:var(--primary); color:white; border:none; border-radius:5px; padding:5px 12px; cursor:pointer;">Stuur</button>
+                    </div>
+                </div>`;
+        });
     }
 
-    function fillTops() {
-        document.getElementById('tops-list').innerHTML = `
-            <div class="card" style="margin-bottom:15px; border-top-color:#f1c40f;">🌟 <strong>Top van Sanne:</strong> "Ik vind jullie argumenten voor de veiligheid heel goed uitgelegd."</div>
-            <div class="card" style="margin-bottom:15px; border-top-color:#f1c40f;">🌟 <strong>Top van Meester:</strong> "Heel goed gebruik gemaakt van de informatie uit het krantenartikel!"</div>
+    function renderTops() {
+        const list = document.getElementById('tops-list');
+        list.innerHTML = `
+            <div class="card" style="border-top-color: var(--gold); background: #fffdf0;">
+                🌟 <strong>Top van Sanne:</strong> "Wat hebben jullie een goede balans gevonden tussen de boeren en de natuur!"
+            </div>
+            <div class="card" style="border-top-color: var(--gold); background: #fffdf0;">
+                🌟 <strong>Top van Meester Jan:</strong> "Heel scherp opgemerkt dat tunnels voor de infrastructuur essentieel zijn."
+            </div>
         `;
     }
 </script>
