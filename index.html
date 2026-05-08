@@ -15,11 +15,9 @@
 
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; margin: 0; background: var(--light); }
         
-        /* Progress Bar */
         #progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 6px; background: #ddd; z-index: 2000; }
         #progress-bar { height: 100%; width: 0%; background: var(--primary); transition: width 0.5s ease; }
 
-        /* Navigatie */
         nav { background: var(--dark); padding: 1rem; position: sticky; top: 6px; display: flex; justify-content: center; gap: 10px; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         nav button { background: #34495e; border: none; color: white; padding: 10px 18px; cursor: pointer; border-radius: 20px; transition: 0.3s; font-size: 0.9rem; font-weight: bold; }
         nav button.active { background: var(--primary); box-shadow: 0 0 15px rgba(26, 188, 156, 0.4); }
@@ -27,27 +25,17 @@
         .container { max-width: 1100px; margin: 40px auto; background: white; padding: 50px; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.08); min-height: 70vh; }
         .hidden { display: none; }
         
-        /* Krant Styling */
         .newspaper-text { text-align: justify; border-top: 3px solid #000; padding-top: 20px; margin-bottom: 30px; }
         .newspaper-text h2 { font-family: 'Times New Roman', serif; font-size: 2.8rem; margin-bottom: 10px; text-align: center; }
         .author-line { font-style: italic; border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 20px; font-weight: bold; }
 
-        /* Interactieve Elementen */
         .input-box { background: #e8f6f3; padding: 30px; border-radius: 12px; border: 1px solid var(--primary); margin-bottom: 40px; display: flex; gap: 15px; align-items: flex-end; }
         .input-group { flex: 1; }
         .input-group label { display: block; font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; color: var(--dark); }
         .input-group input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
 
         .card { background: white; border-radius: 12px; border: 1px solid #eee; padding: 25px; transition: 0.4s; position: relative; border-top: 5px solid var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        .new-item { animation: slideIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-top-color: var(--accent); }
-        
-        @keyframes slideIn {
-            from { opacity: 0; transform: scale(0.8) translateY(30px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
         .btn-main { background: var(--primary); color: white; border: none; padding: 14px 28px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(26,188,156,0.3); }
 
         .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
 
@@ -55,11 +43,14 @@
         th, td { border: 1px solid #eee; padding: 12px; text-align: left; }
         th { background: #f8f9fa; }
 
-        .node { display: inline-block; padding: 10px 20px; margin: 10px; border-radius: 8px; background: white; font-weight: bold; transition: 0.3s; }
+        .node { display: inline-block; padding: 10px 20px; margin: 10px; border-radius: 8px; background: white; font-weight: bold; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         
-        /* Bronnen sectie */
-        .sources-box { background: #fdfdfd; padding: 20px; border: 1px solid #ddd; border-radius: 10px; margin-top: 20px; }
-        .source-link { display: block; margin-bottom: 8px; color: var(--primary); font-weight: bold; text-decoration: none; }
+        /* Infobronnen Styling */
+        .sources-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
+        .source-card { background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 10px; border-left: 6px solid var(--primary); transition: 0.3s; }
+        .source-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .source-card h4 { margin: 0 0 10px 0; color: var(--dark); }
+        .source-card a { color: var(--primary); font-weight: bold; text-decoration: none; word-break: break-all; }
     </style>
 </head>
 <body>
@@ -100,23 +91,20 @@
 
     <section id="screen-voorkennis" class="hidden">
         <h2>Wat weet de klas al?</h2>
-        <p>Voordat we dieper in de bronnen duiken, delen we onze huidige kennis. Wat weet jij al?</p>
-        
         <div class="input-box">
             <div class="input-group">
                 <label>Wat weet je over de wolf in de natuur?</label>
-                <input type="text" id="input-natuur" placeholder="Bijv. Ze leven in een roedel en jagen samen...">
+                <input type="text" id="input-natuur" placeholder="Bijv. Ze leven in een roedel...">
             </div>
             <div class="input-group">
                 <label>Welk verhaal of sprookje ken je over de wolf?</label>
-                <input type="text" id="input-verhaal" placeholder="Bijv. De wolf en de drie biggetjes...">
+                <input type="text" id="input-verhaal" placeholder="Bijv. Roodkapje...">
             </div>
             <button onclick="addLiveKnowledge()" class="btn-main">Deel met de klas 🚀</button>
         </div>
-
         <div id="all-knowledge-wall" class="grid-layout">
             <div class="card">
-                <div style="font-weight:bold; color:var(--primary); font-size:1.1rem; margin-bottom:10px;">👤 Sanne</div>
+                <div style="font-weight:bold; color:var(--primary);">👤 Sanne</div>
                 <p><strong>Natuur:</strong> Wolven zijn erg schuw en komen liever geen mensen tegen.</p>
                 <p><strong>Verhaal:</strong> Roodkapje en de boze wolf.</p>
             </div>
@@ -125,61 +113,65 @@
 
     <section id="screen-opdracht" class="hidden">
         <h2>De Opdracht</h2>
-        <div style="background: #e8f6f3; padding: 40px; border-left: 10px solid var(--primary); border-radius: 0 15px 15px 0;">
-            <p style="font-size: 1.25rem; font-weight: bold; color: var(--dark);">Beste deskundigen,</p>
-            <p>Jullie gaan onderzoeken hoe de wolf weer een plek kan krijgen op de Veluwe. Het is jullie taak om een mindmap te maken waarin de verschillende belangen duidelijk naar voren komen.</p>
-            <p>Gebruik de infobronnen en video's om argumenten te verzamelen voor de volgende drie punten:</p>
-            <ul style="font-size: 1.1rem; line-height: 2;">
-                <li><strong>De Voorstanders:</strong> Waarom zijn veel natuurliefhebbers blij met de komst van de wolf? (Denk aan biodiversiteit en natuurlijk evenwicht).</li>
-                <li><strong>De Tegenstanders:</strong> Waarom maken boeren en sommige bewoners zich zorgen? (Denk aan veiligheid van vee en angst).</li>
-                <li><strong>Infrastructuur:</strong> Wat moet er fysiek veranderen op de Veluwe om mens en wolf veilig samen te laten leven? (Denk aan rasters, ecoducten en tunnels).</li>
+        <div style="background: #e8f6f3; padding: 30px; border-left: 10px solid var(--primary); border-radius: 0 15px 15px 0; margin-bottom: 40px;">
+            <p style="font-weight: bold;">Beste deskundigen,</p>
+            <p>Jullie gaan onderzoeken hoe de wolf weer een plek kan krijgen op de Veluwe. Maak een mindmap waarin de verschillende belangen duidelijk naar voren komen.</p>
+            <ul>
+                <li><strong>De Voorstanders:</strong> Natuurlijk evenwicht en biodiversiteit.</li>
+                <li><strong>De Tegenstanders:</strong> Veiligheid van vee en angst.</li>
+                <li><strong>Infrastructuur:</strong> Rasters, ecoducten en tunnels.</li>
             </ul>
         </div>
 
-        <div class="sources-box">
-            <h3>Infobronnen:</h3>
-            <a href="https://www.youtube.com/watch?v=p0KTqVoSEJ0" class="source-link" target="_blank">📺 Bron 1: Wolf gespot in Nederland (Video)</a>
-            <a href="https://www.wnf.nl/dieren/wolf" class="source-link" target="_blank">📄 Bron 2: Dossier de Wolf (WNF)</a>
-            <a href="https://www.natuurmonumenten.nl/dieren/wolf" class="source-link" target="_blank">📄 Bron 3: De Wolf terug in Nederland (Natuurmonumenten)</a>
+        <h3 id="bronnen">Infobronnen voor onderzoek:</h3>
+        <p>Gebruik deze bronnen om argumenten te vinden voor je mindmap:</p>
+        <div class="sources-grid">
+            <div class="source-card">
+                <h4>📺 Video: RTL Nieuws</h4>
+                <p>Wolf gespot in Nederland: hoe reageren mensen?</p>
+                <a href="https://www.youtube.com/watch?v=p0KTqVoSEJ0" target="_blank">Bekijk video op YouTube</a>
+            </div>
+            <div class="source-card">
+                <h4>📄 Dossier: WNF</h4>
+                <p>Alles over de levenswijze en terugkeer van de wolf.</p>
+                <a href="https://www.wnf.nl/dieren/wolf" target="_blank">Naar de website van WNF</a>
+            </div>
+            <div class="source-card">
+                <h4>🌳 Natuurmonumenten</h4>
+                <p>Waarom de wolf thuishoort in de Nederlandse natuur.</p>
+                <a href="https://www.natuurmonumenten.nl/dieren/wolf" target="_blank">Bezoek Natuurmonumenten</a>
+            </div>
         </div>
     </section>
 
     <section id="screen-verwerking" class="hidden">
         <h2>Verwerking: Bouw de Mindmap</h2>
-        <p>Klik op de knoppen om jullie verzamelde argumenten toe te voegen aan de centrale mindmap. Meld uit welke bron jij dit argument hebt gevonden.</p>
+        <p>Klik op de knoppen om argumenten toe te voegen. <strong>Vergeet niet je bron te vermelden!</strong></p>
         
         <div style="text-align: center; border: 3px dashed #cbd5e0; padding: 50px; border-radius: 20px; background: #fafafa;">
-            <div style="background: var(--dark); color: white; display: inline-block; padding: 15px 40px; border-radius: 12px; font-weight: bold; font-size: 1.4rem; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+            <div style="background: var(--dark); color: white; display: inline-block; padding: 15px 40px; border-radius: 12px; font-weight: bold; font-size: 1.4rem; margin-bottom: 30px;">
                 De Wolf op de Veluwe
             </div>
-            
             <div id="nodes-container" style="min-height: 100px; margin-bottom: 30px;"></div>
-
             <div style="display: flex; justify-content: center; gap: 20px;">
                 <button onclick="addNode('voor')" class="btn-main" style="background:#16a085;">+ Voorstander-argument</button>
                 <button onclick="addNode('tegen')" class="btn-main" style="background:#c0392b;">+ Tegenstander-zorg</button>
             </div>
-            
-            <button onclick="publishMindmap()" class="btn-main" style="margin-top: 60px; width: 100%; background: var(--dark); letter-spacing: 1px;">OPSLAAN EN DELEN MET DE KLAS</button>
+            <button onclick="publishMindmap()" class="btn-main" style="margin-top: 60px; width: 100%; background: var(--dark);">OPSLAAN EN DELEN</button>
         </div>
     </section>
 
     <section id="screen-beoordeling" class="hidden">
         <h2>Beoordeling & Feedback</h2>
-        <p>Een goede deskundige kijkt naar het werk van anderen. Een goede deskundige leert van anderen. Een goede deskundige kan anderen een tip geven.<br> We willen dat je jouw collega's positief benadert: geef elk groepje een 'Top'.</p>
-        
+        <p>Geef elk groepje een 'Top' en let op de bronvermelding.</p>
         <table>
-            <thead>
-                <tr><th>Criterium</th><th>Waar let je op?</th></tr>
-            </thead>
+            <thead><tr><th>Criterium</th><th>Waar let je op?</th></tr></thead>
             <tbody>
-                <tr><td><strong>Inhoud</strong></td><td>Is de tekst uit de krant en de video's goed gebruikt voor de argumenten?</td></tr>
-                <tr><td><strong>Balans</strong></td><td>Zijn zowel de voorstanders als de tegenstanders op een eerlijke manier benoemd?</td></tr>
-                <tr><td><strong>Samenwerking</strong></td><td>Ziet het resultaat eruit alsof er goed is overlegd in het groepje?</td></tr>
-                <tr><td><strong>Bronnen</strong></td><td>Schrijf op van wie je het argument waar je het mee eens bent hebt. Schrijf op van wie je het argument hebt waar je het niet mee eens bent.</td></tr>
+                <tr><td><strong>Inhoud</strong></td><td>Is de tekst uit de krant en de video's goed gebruikt?</td></tr>
+                <tr><td><strong>Bronnen</strong></td><td>Is er genoteerd uit welke bron het argument komt?</td></tr>
+                <tr><td><strong>Samenwerking</strong></td><td>Ziet het resultaat eruit als een groepsproduct?</td></tr>
             </tbody>
         </table>
-
         <h3 style="margin-top: 40px;">De Mindmap Galerij</h3>
         <div id="mindmap-galerij" class="grid-layout"></div>
     </section>
@@ -187,20 +179,17 @@
     <section id="screen-afsluiting" class="hidden" style="text-align: center;">
         <div style="font-size: 5rem;">🌟</div>
         <h2>Uitstekend gedaan!</h2>
-        <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto;">Je hebt het onderzoek naar de wolf op de Veluwe succesvol afgerond. Je bent nu een ware expert op het gebied van ecologie en maatschappelijke belangen.</p>
-        
         <div id="tops-received" style="margin-top: 40px;">
-            <h3>Ontvangen 'Tops' van klasgenoten:</h3>
-            <div id="tops-list" style="max-width: 600px; margin: 0 auto; text-align: left;"></div>
+            <h3>Ontvangen 'Tops':</h3>
+            <div id="tops-list"></div>
         </div>
-        
         <button onclick="location.reload()" class="btn-main" style="margin-top: 50px; background: var(--dark);">Opnieuw beginnen</button>
     </section>
 </div>
 
 <script>
     const krantenKop = "WOLVEN OP DE VELUWE";
-    const krantenTekst = "EDE - Edenaar Robertjan van der Heijden maakt woensdagochtend zijn dagelijkse fietstocht naar zijn werk in Barneveld, als hij in het bos langs de Apeldoornseweg (N304) tussen Ede en de rotonde bij de Driesprong plots oog-in-oog staat met een wolf. ,,Dat was best even schrikken\", vertelt Van der Heijden.\n\nHet is rond 8.00 uur als de inwoner van Ede, op ongeveer een kilometer buiten zijn woonplaats, in de schemerende verte een dier ziet dat op een hond lijkt. Dat bevreemdt hem. ,,Het is absoluut geen plek om je hond uit te laten. Ik zag er ook niemand bij staan of lopen.\"\n\nHoe dichter Van der Heijden bij het dier in de buurt komt, hoe groter hij lijkt te worden. Hij remt af. ,,Ik had niet de intentie om hem op het fietspad voorbij te gaan. Je schrikt er namelijk toch van.\"\n\nNatuurmonumenten noemt de komst van het roofdier goed nieuws. ,,Als de wolf terugkeert, laat dat zien dat er in ons drukke land nog plekken zijn voor een toppredator als de wolf. De wolf maakt de Nederlandse natuur diverser en spannender.\"";
+    const krantenTekst = "EDE - Edenaar Robertjan van der Heijden staat plots oog-in-oog met een wolf. Natuurmonumenten noemt de komst goed nieuws: 'De wolf maakt de Nederlandse natuur diverser en spannender.'";
 
     let userName = "";
     let userMindmapNodes = []; 
@@ -210,13 +199,11 @@
         screens.forEach(s => document.getElementById('screen-' + s).classList.add('hidden'));
         document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
         document.getElementById('screen-' + id).classList.remove('hidden');
-        
         if(id !== 'login') {
             document.getElementById('nav-' + id).classList.add('active');
             const progress = (screens.indexOf(id) / (screens.length - 1)) * 100;
             document.getElementById('progress-bar').style.width = progress + '%';
         }
-        
         if(id === 'inleiding') startTypewriter();
         if(id === 'beoordeling') renderGalerij();
         if(id === 'afsluiting') renderTops();
@@ -225,13 +212,8 @@
 
     function login() {
         const input = document.getElementById('firstname').value;
-        if(input) {
-            userName = input;
-            document.getElementById('main-nav').classList.remove('hidden');
-            showScreen('inleiding');
-        } else {
-            alert("Voer eerst je naam in om deel te nemen aan de klas.");
-        }
+        if(input) { userName = input; document.getElementById('main-nav').classList.remove('hidden'); showScreen('inleiding'); }
+        else { alert("Voer je naam in."); }
     }
 
     function startTypewriter() {
@@ -250,18 +232,16 @@
     function addLiveKnowledge() {
         const n = document.getElementById('input-natuur').value;
         const v = document.getElementById('input-verhaal').value;
-        if(!n || !v) return alert("Vul beide velden in.");
-        
+        if(!n || !v) return;
         const wall = document.getElementById('all-knowledge-wall');
         const card = document.createElement('div');
-        card.className = "card new-item";
-        card.innerHTML = `<div style="font-weight:bold; color:var(--accent);">👤 ${userName}</div>
-                          <p><strong>Natuur:</strong> ${n}</p><p><strong>Verhaal:</strong> ${v}</p>`;
+        card.className = "card";
+        card.innerHTML = `<strong>👤 ${userName}</strong><p>Natuur: ${n}</p><p>Verhaal: ${v}</p>`;
         wall.prepend(card);
     }
 
     function addNode(type) {
-        const val = prompt(type === 'voor' ? "Welk positief argument?" : "Welke zorg?");
+        const val = prompt("Voer argument in EN uit welke bron je dit hebt:");
         if(!val) return;
         userMindmapNodes.push({type: type, text: val});
         const node = document.createElement('div');
@@ -272,27 +252,20 @@
     }
 
     function publishMindmap() {
-        if(userMindmapNodes.length < 1) return alert("Voeg eerst argumenten toe.");
+        if(userMindmapNodes.length < 1) return alert("Voeg argumenten toe.");
         showScreen('beoordeling');
     }
 
     function renderGalerij() {
         const galerij = document.getElementById('mindmap-galerij');
-        galerij.innerHTML = ""; 
-        if(userMindmapNodes.length > 0) {
-            galerij.innerHTML += `<div class="card"><h4>Mindmap van ${userName}</h4><p>Resultaten gedeeld.</p></div>`;
-        }
+        galerij.innerHTML = `<div class="card"><h4>Groep van ${userName}</h4><p>${userMindmapNodes.length} argumenten gevonden.</p></div>`;
     }
 
     function renderTops() {
         const list = document.getElementById('tops-list');
         list.innerHTML = `
-            <div class="card" style="border-top-color: var(--gold); background: #fffdf0;">
-                🌟 <strong>Top van Sanne:</strong> "Wat hebben jullie een goede balans gevonden tussen de boeren en de natuur! Van wie hebben jullie dit argument? Noteer hun namen in jullie mindmap."
-            </div>
-            <div class="card" style="border-top-color: var(--gold); background: #fffdf0;">
-                🌟 <strong>Top van Meester Jan:</strong> "Heel scherp opgemerkt dat tunnels voor de infrastructuur belangrijk zijn. Maak in jouw mindmap een vakje eronder erbij, waarin jij vertelt waarom die tunnels belangrijk zijn."
-            </div>
+            <div class="card" style="border-top-color: var(--gold);">🌟 Top van Sanne: "Goede balans tussen bronnen!"</div>
+            <div class="card" style="border-top-color: var(--gold);">🌟 Top van Meester Jan: "Scherp opgemerkt over de tunnels."</div>
         `;
     }
 </script>
