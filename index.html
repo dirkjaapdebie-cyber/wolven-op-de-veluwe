@@ -56,6 +56,10 @@
         th { background: #f8f9fa; }
 
         .node { display: inline-block; padding: 10px 20px; margin: 10px; border-radius: 8px; background: white; font-weight: bold; transition: 0.3s; }
+        
+        /* Bronnen sectie */
+        .sources-box { background: #fdfdfd; padding: 20px; border: 1px solid #ddd; border-radius: 10px; margin-top: 20px; }
+        .source-link { display: block; margin-bottom: 8px; color: var(--primary); font-weight: bold; text-decoration: none; }
     </style>
 </head>
 <body>
@@ -116,11 +120,6 @@
                 <p><strong>Natuur:</strong> Wolven zijn erg schuw en komen liever geen mensen tegen.</p>
                 <p><strong>Verhaal:</strong> Roodkapje en de boze wolf.</p>
             </div>
-            <div class="card">
-                <div style="font-weight:bold; color:var(--primary); font-size:1.1rem; margin-bottom:10px;">👤 Lucas</div>
-                <p><strong>Natuur:</strong> Ze kunnen enorme afstanden afleggen op één dag.</p>
-                <p><strong>Verhaal:</strong> De wolf en de zeven geitjes.</p>
-            </div>
         </div>
     </section>
 
@@ -136,6 +135,13 @@
                 <li><strong>Infrastructuur:</strong> Wat moet er fysiek veranderen op de Veluwe om mens en wolf veilig samen te laten leven? (Denk aan rasters, ecoducten en tunnels).</li>
             </ul>
         </div>
+
+        <div class="sources-box">
+            <h3>Infobronnen:</h3>
+            <a href="https://www.youtube.com/watch?v=p0KTqVoSEJ0" class="source-link" target="_blank">📺 Bron 1: Wolf gespot in Nederland (Video)</a>
+            <a href="https://www.wnf.nl/dieren/wolf" class="source-link" target="_blank">📄 Bron 2: Dossier de Wolf (WNF)</a>
+            <a href="https://www.natuurmonumenten.nl/dieren/wolf" class="source-link" target="_blank">📄 Bron 3: De Wolf terug in Nederland (Natuurmonumenten)</a>
+        </div>
     </section>
 
     <section id="screen-verwerking" class="hidden">
@@ -147,8 +153,7 @@
                 De Wolf op de Veluwe
             </div>
             
-            <div id="nodes-container" style="min-height: 100px; margin-bottom: 30px;">
-                </div>
+            <div id="nodes-container" style="min-height: 100px; margin-bottom: 30px;"></div>
 
             <div style="display: flex; justify-content: center; gap: 20px;">
                 <button onclick="addNode('voor')" class="btn-main" style="background:#16a085;">+ Voorstander-argument</button>
@@ -171,13 +176,12 @@
                 <tr><td><strong>Inhoud</strong></td><td>Is de tekst uit de krant en de video's goed gebruikt voor de argumenten?</td></tr>
                 <tr><td><strong>Balans</strong></td><td>Zijn zowel de voorstanders als de tegenstanders op een eerlijke manier benoemd?</td></tr>
                 <tr><td><strong>Samenwerking</strong></td><td>Ziet het resultaat eruit alsof er goed is overlegd in het groepje?</td></tr>
-                 <tr><td><strong>Bronnen</strong></td><td>Schrijf op van wie je het argument waar je het mee eens bent hebt. Schrijf op van wie je het argument hebt waar je het niet mee eens bent.</td></tr>
+                <tr><td><strong>Bronnen</strong></td><td>Schrijf op van wie je het argument waar je het mee eens bent hebt. Schrijf op van wie je het argument hebt waar je het niet mee eens bent.</td></tr>
             </tbody>
         </table>
 
         <h3 style="margin-top: 40px;">De Mindmap Galerij</h3>
-        <div id="mindmap-galerij" class="grid-layout">
-            </div>
+        <div id="mindmap-galerij" class="grid-layout"></div>
     </section>
 
     <section id="screen-afsluiting" class="hidden" style="text-align: center;">
@@ -187,8 +191,7 @@
         
         <div id="tops-received" style="margin-top: 40px;">
             <h3>Ontvangen 'Tops' van klasgenoten:</h3>
-            <div id="tops-list" style="max-width: 600px; margin: 0 auto; text-align: left;">
-                </div>
+            <div id="tops-list" style="max-width: 600px; margin: 0 auto; text-align: left;"></div>
         </div>
         
         <button onclick="location.reload()" class="btn-main" style="margin-top: 50px; background: var(--dark);">Opnieuw beginnen</button>
@@ -247,20 +250,18 @@
     function addLiveKnowledge() {
         const n = document.getElementById('input-natuur').value;
         const v = document.getElementById('input-verhaal').value;
-        if(!n || !v) return alert("Vul beide velden in om je kennis te delen.");
+        if(!n || !v) return alert("Vul beide velden in.");
         
         const wall = document.getElementById('all-knowledge-wall');
         const card = document.createElement('div');
         card.className = "card new-item";
-        card.innerHTML = `<div style="font-weight:bold; color:var(--accent);">👤 ${userName} (Jij)</div>
+        card.innerHTML = `<div style="font-weight:bold; color:var(--accent);">👤 ${userName}</div>
                           <p><strong>Natuur:</strong> ${n}</p><p><strong>Verhaal:</strong> ${v}</p>`;
         wall.prepend(card);
-        document.getElementById('input-natuur').value = "";
-        document.getElementById('input-verhaal').value = "";
     }
 
     function addNode(type) {
-        const val = prompt(type === 'voor' ? "Welk positief argument heb je gevonden?" : "Welke zorg of tegenargument heb je gevonden?");
+        const val = prompt(type === 'voor' ? "Welk positief argument?" : "Welke zorg?");
         if(!val) return;
         userMindmapNodes.push({type: type, text: val});
         const node = document.createElement('div');
@@ -271,46 +272,16 @@
     }
 
     function publishMindmap() {
-        if(userMindmapNodes.length < 1) return alert("Voeg eerst minimaal één argument toe aan je mindmap.");
-        alert("Je mindmap is succesvol opgeslagen en gedeeld met de klas!");
+        if(userMindmapNodes.length < 1) return alert("Voeg eerst argumenten toe.");
         showScreen('beoordeling');
     }
 
     function renderGalerij() {
         const galerij = document.getElementById('mindmap-galerij');
         galerij.innerHTML = ""; 
-
         if(userMindmapNodes.length > 0) {
-            const voor = userMindmapNodes.filter(n => n.type === 'voor').map(n => n.text).join(', ') || "Geen ingevoerd";
-            const tegen = userMindmapNodes.filter(n => n.type === 'tegen').map(n => n.text).join(', ') || "Geen ingevoerd";
-            galerij.innerHTML += `
-                <div class="card new-item" style="border-top-color: var(--accent);">
-                    <div style="background: var(--accent); color:white; padding:3px 10px; border-radius:10px; font-size:0.7rem; float:right;">LIVE</div>
-                    <h4>Mindmap van ${userName}</h4>
-                    <p><strong>✅ Voor:</strong> ${voor}</p>
-                    <p><strong>❌ Tegen:</strong> ${tegen}</p>
-                    <div style="margin-top:15px; border-top:1px solid #eee; padding-top:10px;">
-                        <span style="font-size:0.8rem; color:#888;">Wachten op feedback...</span>
-                    </div>
-                </div>`;
+            galerij.innerHTML += `<div class="card"><h4>Mindmap van ${userName}</h4><p>Resultaten gedeeld.</p></div>`;
         }
-
-        const klas = [
-            {n: "Groepje Blauw (Emma & Tim)", v: "Balans in natuur, Toerisme", t: "Veiligheid schapen"},
-            {n: "Groepje Geel (Milan & Sara)", v: "Minder zieke dieren", t: "Angst bij bewoners"}
-        ];
-        klas.forEach(k => {
-            galerij.innerHTML += `
-                <div class="card">
-                    <h4>Mindmap van ${k.n}</h4>
-                    <p><strong>✅ Voor:</strong> ${k.v}</p>
-                    <p><strong>❌ Tegen:</strong> ${k.t}</p>
-                    <div style="margin-top:15px; display:flex; gap:5px;">
-                        <input type="text" placeholder="Geef een Top..." style="flex:1; padding:8px; border-radius:5px; border:1px solid #ddd; font-size:0.8rem;">
-                        <button onclick="this.innerText='Verzonden!'" style="background:var(--primary); color:white; border:none; border-radius:5px; padding:5px 12px; cursor:pointer;">Stuur</button>
-                    </div>
-                </div>`;
-        });
     }
 
     function renderTops() {
