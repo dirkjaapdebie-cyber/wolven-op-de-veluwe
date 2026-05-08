@@ -90,7 +90,7 @@
         </div>
         <div id="video-box" class="hidden" style="margin-top: 30px; text-align: center;">
             <iframe width="100%" height="500" src="https://www.youtube.com/embed/p0KTqVoSEJ0" frameborder="0" allowfullscreen style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);"></iframe>
-            <p style="font-style: italic; color: #666; margin-top: 10px;">Bekijk de video om een goed beeld te krijgen van de situatie in Ede.</p>
+            <p style="font-style: italic; color: #666; margin-top: 10px;">Bekijk de video om een goed beeld te krijgen van de situatie.</p>
         </div>
     </section>
 
@@ -140,7 +140,7 @@
 
     <section id="screen-verwerking" class="hidden">
         <h2>Verwerking: Bouw de Mindmap</h2>
-        <p>Klik op de knoppen om jullie verzamelde argumenten toe te voegen aan de centrale mindmap.Meld uit welke bron jij dit argument hebt gevonden.</p>
+        <p>Klik op de knoppen om jullie verzamelde argumenten toe te voegen aan de centrale mindmap. Meld uit welke bron jij dit argument hebt gevonden.</p>
         
         <div style="text-align: center; border: 3px dashed #cbd5e0; padding: 50px; border-radius: 20px; background: #fafafa;">
             <div style="background: var(--dark); color: white; display: inline-block; padding: 15px 40px; border-radius: 12px; font-weight: bold; font-size: 1.4rem; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
@@ -171,7 +171,7 @@
                 <tr><td><strong>Inhoud</strong></td><td>Is de tekst uit de krant en de video's goed gebruikt voor de argumenten?</td></tr>
                 <tr><td><strong>Balans</strong></td><td>Zijn zowel de voorstanders als de tegenstanders op een eerlijke manier benoemd?</td></tr>
                 <tr><td><strong>Samenwerking</strong></td><td>Ziet het resultaat eruit alsof er goed is overlegd in het groepje?</td></tr>
-                 <tr><td><strong>Bronnen</strong></td><td>Schrijf op van wie je het argument waar je het mee eens bent hebt. Schrijf op van wie je het arument hebt waar je het niet mee eens bent.</td></tr>
+                 <tr><td><strong>Bronnen</strong></td><td>Schrijf op van wie je het argument waar je het mee eens bent hebt. Schrijf op van wie je het argument hebt waar je het niet mee eens bent.</td></tr>
             </tbody>
         </table>
 
@@ -203,7 +203,6 @@
     let userMindmapNodes = []; 
     const screens = ['login', 'inleiding', 'voorkennis', 'opdracht', 'verwerking', 'beoordeling', 'afsluiting'];
 
-    // --- NAVIGATIE ---
     function showScreen(id) {
         screens.forEach(s => document.getElementById('screen-' + s).classList.add('hidden'));
         document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
@@ -232,7 +231,6 @@
         }
     }
 
-    // --- TYPED EFFECT ---
     function startTypewriter() {
         let i = 0; let j = 0;
         const h = document.getElementById('typed-header');
@@ -246,7 +244,6 @@
         type();
     }
 
-    // --- LIVE FEED VOORKENNIS ---
     function addLiveKnowledge() {
         const n = document.getElementById('input-natuur').value;
         const v = document.getElementById('input-verhaal').value;
@@ -262,7 +259,6 @@
         document.getElementById('input-verhaal').value = "";
     }
 
-    // --- MINDMAP ---
     function addNode(type) {
         const val = prompt(type === 'voor' ? "Welk positief argument heb je gevonden?" : "Welke zorg of tegenargument heb je gevonden?");
         if(!val) return;
@@ -280,12 +276,10 @@
         showScreen('beoordeling');
     }
 
-    // --- GALERIJ & BEOORDELING ---
     function renderGalerij() {
         const galerij = document.getElementById('mindmap-galerij');
         galerij.innerHTML = ""; 
 
-        // 1. Jouw Mindmap
         if(userMindmapNodes.length > 0) {
             const voor = userMindmapNodes.filter(n => n.type === 'voor').map(n => n.text).join(', ') || "Geen ingevoerd";
             const tegen = userMindmapNodes.filter(n => n.type === 'tegen').map(n => n.text).join(', ') || "Geen ingevoerd";
@@ -301,7 +295,6 @@
                 </div>`;
         }
 
-        // 2. Klasgenoten
         const klas = [
             {n: "Groepje Blauw (Emma & Tim)", v: "Balans in natuur, Toerisme", t: "Veiligheid schapen"},
             {n: "Groepje Geel (Milan & Sara)", v: "Minder zieke dieren", t: "Angst bij bewoners"}
@@ -324,10 +317,10 @@
         const list = document.getElementById('tops-list');
         list.innerHTML = `
             <div class="card" style="border-top-color: var(--gold); background: #fffdf0;">
-                🌟 <strong>Top van Sanne:</strong> "Wat hebben jullie een goede balans gevonden tussen de boeren en de natuur!Van wie hebben jullie dit argument? Noteer hun namen in jullie mindmap."
+                🌟 <strong>Top van Sanne:</strong> "Wat hebben jullie een goede balans gevonden tussen de boeren en de natuur! Van wie hebben jullie dit argument? Noteer hun namen in jullie mindmap."
             </div>
             <div class="card" style="border-top-color: var(--gold); background: #fffdf0;">
-                🌟 <strong>Top van Meester Jan:</strong> "Heel scherp opgemerkt dat tunnels voor de infrastructuur belangrijk zijn.Maak in jouw mindmap een vakje eronder erbij, waarin jij vertelt waarom die tunnels belangrijk zijn."
+                🌟 <strong>Top van Meester Jan:</strong> "Heel scherp opgemerkt dat tunnels voor de infrastructuur belangrijk zijn. Maak in jouw mindmap een vakje eronder erbij, waarin jij vertelt waarom die tunnels belangrijk zijn."
             </div>
         `;
     }
